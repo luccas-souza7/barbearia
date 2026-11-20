@@ -111,7 +111,7 @@
     if (!alvo || !D.barbeiros) return;
     alvo.innerHTML = D.barbeiros.map(function (b, i) {
       return '<article class="barbeiro revelar" style="--atraso:' + i * 100 + 'ms">' +
-        '<div class="barbeiro__foto"><img src="' + BASE_IMG + esc(b.foto) + '" alt="Retrato do barbeiro ' + esc(b.nome) + '" width="600" height="750" loading="lazy" decoding="async"></div>' +
+        '<div class="barbeiro__foto"><img src="' + BASE_IMG + esc(b.foto) + '" alt="Retrato do barbeiro ' + esc(b.nome) + '" width="480" height="600" loading="lazy" decoding="async"></div>' +
         '<div class="barbeiro__info"><h3>' + esc(b.nome) + "</h3><p>" + esc(b.especialidade) + "</p>" +
         '<button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram de ' + esc(b.nome) + ' (demonstração)">' + icone("instagram") + "</button></div>" +
         "</article>";

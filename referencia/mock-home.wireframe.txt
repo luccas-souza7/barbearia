@@ -1,0 +1,115 @@
++--------------------------------------------------------------------------------------------------------------+
+| topbar                                                                                                       |
+|                         [ico:clock] [t3: Aberto de terça a sábado, das 9h às 20h]       [ico:whatsapp] [ico:instagram] |
++--------------------------------------------------------------------------------------------------------------+
+| nav                                                                                                          |
+| [img:emblema] [t1: LÂMINA FINA] | [btn: Início] [lnk: Serviços] [lnk: Barbeiros] [lnk: Clube]              |
+|               [t3: BARBEARIA]   | [lnk: Galeria] [lnk: Contato]                     [btn2: Agendar horário]   |
++--------------------------------------------------------------------------------------------------------------+
+| hero                                                                                                         |
+| [img:poste]  [h1: Seu corte, do seu jeito,]                         [img: barbeiro fazendo degradê]          |
+|              [h1: no seu bairro]                                                                             |
+|              [t1: Corte, barba e acabamento com hora marcada e sem fila.]                                    |
+|              [btn2: Agendar agora] [btn3: Ver serviços]                                                       |
++--------------------------------------------------------------------------------------------------------------+
+| stats                                                                                                        |
+| [ico:scissors] [h2: +8.000] | [ico:calendar] [h2: 6 anos] | [ico:users] [h2: 4 barbeiros] | [ico:star] [h2: Nota 4,9] |
+|                [t2: cortes realizados] |     [t2: no bairro] |                              |            [t2: no Google] |
++--------------------------------------------------------------------------------------------------------------+
+| about                                                                                                        |
+| +-------------------------------------------------+  [h2: Tradição de barbearia]                            |
+| | media                                           |  [h2: com estilo de hoje]                                |
+| | [img: salão, cadeiras de couro, tijolo]         |  [t1: Mais que um corte, um espaço pra você se sentir bem,] |
+| |                                                 |  [t1: relaxar e sair ainda mais confiante.]              |
+| +-------------------------------------------------+  [ico:snowflake] [t2: Ambiente climatizado]             |
+|                                                      [ico:coffee] [t2: Café e cerveja gelada]               |
+|                                                      [ico:wifi] [t2: Wi-Fi e TV com futebol]                 |
++--------------------------------------------------------------------------------------------------------------+
+| section (serviços)                                                                                           |
+|                         [ico:ornamento] [h2: Nossos Serviços] [ico:ornamento]                                |
+| [ico:scissors] [t2: Corte masculino ........ R$ 45]       [ico:scissors] [t2: Pigmentação .......... R$ 30] |
+| [ico:scissors] [t2: Barba completa com toalha quente R$ 35] [ico:scissors] [t2: Sobrancelha na navalha R$ 15] |
+| [ico:scissors] [t2: Corte + barba .......... R$ 70]       [ico:scissors] [t2: Corte infantil ........ R$ 35] |
+| [ico:scissors] [t2: Degradê / fade ......... R$ 50]       [ico:scissors] [t2: Platinado .. a partir de R$ 120] |
++--------------------------------------------------------------------------------------------------------------+
+| section2 (combos, fundo creme)                                                                               |
+|                               [h2: Nossos Combos]                                                            |
+| +---------------------------+  +-------------------------------+  +---------------------------+           |
+| | card                      |  | card2                         |  | card                      |           |
+| | [h3: Combo Básico]        |  | [t3: Mais pedido]             |  | [h3: Dia do Noivo]        |           |
+| | [ico:check] [t2: Corte]   |  | [h3: Combo Completo]          |  | [ico:check] [t2: Corte]   |           |
+| | [ico:check] [t2: Sobrancelha] | [ico:check] [t2: Corte]       |  | [ico:check] [t2: Barba]   |           |
+| | [btn2: Agendar combo]     |  | [ico:check] [t2: Barba]       |  | [ico:check] [t2: Limpeza de pele] |   |
+| |                           |  | [ico:check] [t2: Sobrancelha] |  | [ico:check] [t2: Bebida]  |           |
+| |                           |  | [ico:check] [t2: Lavagem]     |  | [btn2: Agendar combo]     |           |
+| |                           |  | [btn2: Agendar combo]         |  |                           |           |
+| +---------------------------+  +-------------------------------+  +---------------------------+           |
++--------------------------------------------------------------------------------------------------------------+
+| section (barbeiros)                                                                                          |
+|                               [h2: Nossos Barbeiros]                                                         |
+| +------------------------+ +------------------------+ +------------------------+ +------------------------+ |
+| | card3                  | | card3                  | | card3                  | | card3                  | |
+| | [img: Diego p&b]       | | [img: Marcos p&b]      | | [img: Felipe p&b]      | | [img: Renan p&b]       | |
+| | [h3: Diego]            | | [h3: Marcos]           | | [h3: Felipe]           | | [h3: Renan]            | |
+| | [t3: Especialista em degradê] | [t3: Barba e navalha] | [t3: Cortes clássicos] | [t3: Platinado e química] | |
+| | [ico:instagram]        | | [ico:instagram]        | | [ico:instagram]        | | [ico:instagram]        | |
+| +------------------------+ +------------------------+ +------------------------+ +------------------------+ |
++--------------------------------------------------------------------------------------------------------------+
+| form (agendamento, fundo creme)                                                                              |
+| [ico:tesoura] [h2: Agende seu horário online] | [t3: 1] -- [t3: 2] -- [t3: 3]                                |
+| [t2: Rápido, fácil e sem complicação.]       | [t3: Escolha o serviço] [t3: Escolha o barbeiro] [t3: Escolha dia e horário] |
+| +--------------------------------------+  +--------------------------------------------+                    |
+| | card4 (calendário)                   |  | card5 (horários)                           |                    |
+| | [ico:chevron] [t2: Novembro 2026] [ico:chevron]                  | [btn3: 09:00] [btn: 10:00] [btn3: 11:00] |  |
+| | [t3: D S T Q Q S S]                  |  | [btn3: 14:00] [btn3: 15:00] [btn3: 16:00]  |                    |
+| | [t3: 1 ... 30]  [btn: 19 hoje]       |  | [btn: Confirmar agendamento]               |                    |
+| +--------------------------------------+  +--------------------------------------------+                    |
++--------------------------------------------------------------------------------------------------------------+
+| rail (clube, couro)                                                                                          |
+| [img:coroa] [h2: Clube Lâmina Fina]             +----------------+ +----------------------+ [btn2: Quero assinar] |
+|             [t3: Assinatura mensal com cortes   | card6          | | card6                |                  |
+|             ilimitados e prioridade na agenda]  | [t3: Clube Corte] | [t3: Clube Corte + Barba] |              |
+|                                                 | [h3: R$ 99/mês]| | [h3: R$ 149/mês]     |                  |
+|                                                 +----------------+ +----------------------+                  |
++--------------------------------------------------------------------------------------------------------------+
+| section3 (duas colunas)                                                                                      |
+| +------------------------------------------------+ | +-------------------------------------------------------+ |
+| | gallery                                        | | | products                                              | |
+| | [h2: Nossa Galeria]                            | | | [h2: Nossos Produtos]                                 | |
+| | [btn: Todos] [btn3: Degradê] [btn3: Barba]     | | | +-----------+ +-----------+ +-----------+ +-----------+ | |
+| | [btn3: Clássico] [btn3: Infantil]              | | | | card7     | | card7     | | card7     | | card7     | | |
+| | [img] [img] [img]                              | | | | [img:pote]| | [img:pote]| | [img:frasco]| [img:frasco]| | |
+| | [img] [img] [img]                              | | | | [t2: Pomada modeladora] [t2: Óleo para barba]       | | |
+| |                                                | | | | [t2: Balm pós-barba] [t2: Shampoo para barba]       | | |
+| |                                                | | | | [btn2: Reservar na loja] x4                          | | |
+| +------------------------------------------------+ | +-------------------------------------------------------+ |
++--------------------------------------------------------------------------------------------------------------+
+| section4 (duas colunas)                                                                                      |
+| +------------------------------------------------+ | +-------------------------------------------------------+ |
+| | quote (carrossel)                              | | | faq                                                   | |
+| | [h2: Depoimentos]                              | | | [h2: Perguntas Frequentes]                            | |
+| | [btn3: [ico:chevron-left]]                     | | | [t2: Preciso agendar ou posso chegar na hora?] [ico:chevron-up] | |
+| | +--------------+ +--------------+ +----------+ | | | [t3: Recomendamos o agendamento para evitar espera, ...] | |
+| | | card8        | | card8        | | card8    | | | | [t2: Quais formas de pagamento vocês aceitam?] [ico]  | |
+| | | [av: R] [ico:stars] | [av: L] [ico:stars] | [av: T] | | | [t2: Atendem crianças?] [ico]                  | |
+| | | [t3: "Atendimento top..."] | [t3: "Melhor barbearia..."] | ... | | [t2: Como funciona o clube de assinatura?] [ico] | |
+| | | [t3: Rafael] | | [t3: Lucas]  | | [t3: Thiago] | | |                                                       | |
+| | +--------------+ +--------------+ +----------+ | | |                                                       | |
+| +------------------------------------------------+ | +-------------------------------------------------------+ |
++--------------------------------------------------------------------------------------------------------------+
+| cta                                                                                                          |
+|          [h2: Bora dar um tapa no visual?]   [btn2: [ico:whatsapp] Chamar no WhatsApp]      [img:poste esmaecido] |
++--------------------------------------------------------------------------------------------------------------+
+| footer                                                                                                       |
+| [img:emblema]          | [lnk: Início] [lnk: Serviços] | [ico:phone] [t3: (11) 0000-0000 (fictício)] | [ico:clock] [t3: Ter a Sáb] | [img:mapa] |
+| [t3: Estilo, confiança | [lnk: Barbeiros] [lnk: Clube] | [ico:pin] [t3: Seu bairro, Suzano-SP]       | [t3: 9h às 20h]             |            |
+| e tradição no seu bairro.] | [lnk: Galeria] [lnk: Contato] | [ico:mail] [t3: contato@laminafina.exemplo] |                     |            |
+| +----------------------------------------------------------------------------------------------+ +---------+ |
+| | rail2 (feed)                                                                                 | | pay     | |
+| | [img] [img] [img] [img] [img] [img]                                                          | | [t3: Pix] [t3: Crédito] |
+| |                                                                                              | | [t3: Débito] [t3: Dinheiro] |
+| +----------------------------------------------------------------------------------------------+ +---------+ |
+| [lnk: Termos de Uso] [lnk: Política de Privacidade] [lnk: Política de Cookies] [lnk: Regras do Clube]        |
+| [t3: Projeto fictício desenvolvido para portfólio por LS Luccas Souza. Nenhum atendimento real é oferecido neste site.] |
+| [t3: © 2026 Lâmina Fina Barbearia (marca fictícia)]                                                         |
++--------------------------------------------------------------------------------------------------------------+

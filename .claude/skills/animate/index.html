@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Animate — catálogo local de componentes animados e backgrounds reutilizáveis para interfaces web."
+    />
+    <title>Animate — Motion Library</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Cpath d='M17 47 29 17h7l12 30h-8l-2-6H27l-2 6Zm13-13h6l-3-9Z' fill='white'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="assets/css/fonts.css" />
+    <link rel="stylesheet" href="assets/css/runtime.css" />
+    <link rel="stylesheet" href="assets/css/catalog.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="wordmark" href="#components" aria-label="Animate — início">ANIMATE</a>
+      <nav class="mode-nav" aria-label="Tipos do catálogo">
+        <a href="#components" data-mode-link="components">Componentes</a>
+        <a href="#backgrounds" data-mode-link="backgrounds">Backgrounds</a>
+      </nav>
+    </header>
+
+    <main id="catalog" aria-live="polite">
+      <div class="loading-state">
+        <span>Motion library</span>
+        <strong>Carregando catálogo…</strong>
+      </div>
+    </main>
+
+    <div class="copy-toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="assets/runtime/js/settings.js"></script>
+    <script type="module" src="assets/js/catalog.js"></script>
+  </body>
+</html>

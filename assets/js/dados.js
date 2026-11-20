@@ -83,18 +83,18 @@ window.DADOS = {
 
   // categorias: degrade, barba, classico, infantil
   galeria: [
-    { arquivo: "galeria-01.webp", categoria: "degrade", alt: "Degradê baixo com acabamento na navalha" },
-    { arquivo: "galeria-02.webp", categoria: "barba", alt: "Barba alinhada com contorno marcado" },
-    { arquivo: "galeria-03.webp", categoria: "classico", alt: "Corte clássico penteado para o lado" },
-    { arquivo: "galeria-04.webp", categoria: "infantil", alt: "Corte infantil curto e arrumado" },
-    { arquivo: "galeria-05.webp", categoria: "degrade", alt: "Fade médio com topo texturizado" },
-    { arquivo: "galeria-06.webp", categoria: "barba", alt: "Barbeiro aparando a barba com máquina" },
-    { arquivo: "galeria-07.webp", categoria: "classico", alt: "Corte social com risca lateral" },
-    { arquivo: "galeria-08.webp", categoria: "infantil", alt: "Menino na cadeira de barbeiro" },
-    { arquivo: "galeria-09.webp", categoria: "degrade", alt: "Degradê alto visto de lado" },
-    { arquivo: "galeria-10.webp", categoria: "barba", alt: "Barba cheia hidratada e modelada" },
-    { arquivo: "galeria-11.webp", categoria: "classico", alt: "Acabamento na nuca com navalha" },
-    { arquivo: "galeria-12.webp", categoria: "infantil", alt: "Criança sorrindo depois do corte" }
+    { arquivo: "galeria-01.webp", categoria: "degrade", alt: "Barbeiro acertando o degradê na nuca, em preto e branco" },
+    { arquivo: "galeria-02.webp", categoria: "barba", alt: "Barbeiro alinhando o contorno da barba de um cliente com a máquina" },
+    { arquivo: "galeria-03.webp", categoria: "classico", alt: "Bancada antiga com navalhas, pentes e cadeira clássica de barbeiro" },
+    { arquivo: "galeria-04.webp", categoria: "infantil", alt: "Menino de costas conferindo o corte no espelho de mão" },
+    { arquivo: "galeria-05.webp", categoria: "degrade", alt: "Barbeiro tatuado passando a máquina na nuca do cliente" },
+    { arquivo: "galeria-06.webp", categoria: "barba", alt: "Frasco de óleo para barba sobre a bancada, ao lado da máquina" },
+    { arquivo: "galeria-07.webp", categoria: "classico", alt: "Salão de barbearia antiga com cadeiras de madeira e couro" },
+    { arquivo: "galeria-08.webp", categoria: "infantil", alt: "Menino recebendo acabamento com máquina na lateral" },
+    { arquivo: "galeria-09.webp", categoria: "degrade", alt: "Máquina de corte, tesouras e pente sobre fundo escuro" },
+    { arquivo: "galeria-10.webp", categoria: "barba", alt: "Navalha e pincel de barbear sobre a cuba de espuma" },
+    { arquivo: "galeria-11.webp", categoria: "classico", alt: "Tesoura, pente e navalha sobre toalha vermelha" },
+    { arquivo: "galeria-12.webp", categoria: "infantil", alt: "Garoto sorrindo durante o corte de cabelo" }
   ],
 
   filtrosGaleria: [

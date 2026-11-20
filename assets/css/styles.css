@@ -627,7 +627,7 @@ ul, ol { margin: 0; padding: 0; }
 .produto:hover .produto__img svg { transform: rotate(-4deg) scale(1.05); }
 .produto h3 { font-family: var(--fonte-texto); font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2em; }
 .produto__preco { color: var(--dourado); font-weight: 700; margin-bottom: 0.8em; font-size: 0.95rem; }
-.produto .btn { margin-top: auto; padding-inline: 0.6em; font-size: 0.8rem; }
+.produto .btn { margin-top: auto; padding-inline: 0.4em; font-size: 0.76rem; white-space: nowrap; }
 .frasco-carvao { fill: var(--preto-carvao); }
 .frasco-grafite { fill: var(--grafite); }
 .frasco-dourado { fill: var(--dourado); }

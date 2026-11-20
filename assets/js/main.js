@@ -43,7 +43,7 @@
       return '<rect class="frasco-creme" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="3"/>' +
         '<rect class="frasco-dourado" x="' + x + '" y="' + (y + 4) + '" width="' + w + '" height="2"/>' +
         '<rect class="frasco-dourado" x="' + x + '" y="' + (y + h - 6) + '" width="' + w + '" height="2"/>' +
-        '<text class="frasco-texto" x="' + (x + w / 2) + '" y="' + (y + h / 2 - 1) + '" font-size="7.5" text-anchor="middle" letter-spacing="0.6">LÂMINA FINA</text>' +
+        '<text class="frasco-texto" x="' + (x + w / 2) + '" y="' + (y + h / 2 - 1) + '" font-size="' + Math.min(7.5, w / 7.4).toFixed(1) + '" text-anchor="middle" letter-spacing="0.4">LÂMINA FINA</text>' +
         '<text class="frasco-texto" x="' + (x + w / 2) + '" y="' + (y + h / 2 + 9) + '" font-size="6" text-anchor="middle" letter-spacing="1">' + r + "</text>";
     };
     var corpo = "";
@@ -76,6 +76,8 @@
     return '<svg viewBox="0 0 120 160" role="img" aria-label="Frasco genérico de ' + r.toLowerCase() + ' Lâmina Fina">' + corpo + "</svg>";
   }
 
+  window.LF.frascoSVG = frascoSVG;
+
   /* ---------- Renderização das seções a partir de dados.js ---------- */
   function renderServicos() {
     var alvo = $("#lista-servicos");
@@ -93,7 +95,7 @@
     var alvo = $("#grade-combos");
     if (!alvo || !D.combos) return;
     alvo.innerHTML = D.combos.map(function (c, i) {
-      return '<article class="combo revelar' + (c.destaque ? " combo--destaque" : "") + '" style="--atraso:' + i * 120 + 'ms">' +
+      return '<article class="combo brilho-borda revelar' + (c.destaque ? " combo--destaque" : "") + '" style="--atraso:' + i * 120 + 'ms">' +
         (c.destaque ? '<span class="combo__selo">' + esc(c.destaque) + "</span>" : "") +
         "<h3>" + esc(c.nome) + "</h3>" +
         '<p class="combo__preco">' + moeda(c.preco) + "</p>" +
@@ -120,7 +122,7 @@
     var alvo = $("#planos-clube");
     if (!alvo || !D.planosClube) return;
     alvo.innerHTML = D.planosClube.map(function (p) {
-      return '<li class="plano"><span class="plano__nome">' + esc(p.nome) + '</span><span class="plano__preco">' + moeda(p.preco) + "<small>/mês</small></span></li>";
+      return '<li class="plano brilho-borda"><span class="plano__nome">' + esc(p.nome) + '</span><span class="plano__preco">' + moeda(p.preco) + "<small>/mês</small></span></li>";
     }).join("");
   }
 
@@ -128,7 +130,7 @@
     var alvo = $("#grade-produtos");
     if (!alvo || !D.produtos) return;
     alvo.innerHTML = D.produtos.map(function (p, i) {
-      return '<li class="produto revelar" style="--atraso:' + i * 90 + 'ms">' +
+      return '<li class="produto brilho-borda revelar" style="--atraso:' + i * 90 + 'ms">' +
         '<div class="produto__img">' + frascoSVG(p.tipo, p.rotulo) + "</div>" +
         "<h3>" + esc(p.nome) + "</h3>" +
         '<p class="produto__preco">' + moeda(p.preco) + "</p>" +
@@ -463,4 +465,16 @@
   iniciarCookies();
   iniciarRevelar();
   doc.dispatchEvent(new CustomEvent("lf:pronto"));
+})();
+
+/* Brilho que segue o ponteiro na borda dos cards (só com mouse e sem movimento reduzido) */
+(function () {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !window.matchMedia("(hover: hover)").matches) return;
+  document.addEventListener("pointermove", function (e) {
+    var card = e.target.closest && e.target.closest(".brilho-borda");
+    if (!card) return;
+    var r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    card.style.setProperty("--my", (e.clientY - r.top) + "px");
+  }, { passive: true });
 })();

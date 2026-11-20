@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design System | Lâmina Fina Barbearia</title>
+  <meta name="description" content="Catálogo do design system da Lâmina Fina Barbearia, projeto fictício de portfólio: cores, tipografia, ícones, botões, cards e componentes do agendamento.">
+  <meta name="theme-color" content="#151515">
+  <meta name="author" content="Luccas Souza">
+  <link rel="canonical" href="https://luccas-souza7.github.io/barbearia/design-system.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Lâmina Fina Barbearia (projeto fictício)">
+  <meta property="og:title" content="Design System | Lâmina Fina Barbearia">
+  <meta property="og:description" content="Catálogo do design system da Lâmina Fina Barbearia, projeto fictício de portfólio: cores, tipografia, ícones, botões, cards e componentes do agendamento.">
+  <meta property="og:url" content="https://luccas-souza7.github.io/barbearia/design-system.html">
+  <meta property="og:image" content="https://luccas-souza7.github.io/barbearia/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Lâmina Fina Barbearia, projeto fictício de portfólio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600&family=Roboto+Slab:wght@700&display=swap">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <meta name="robots" content="noindex">
+</head>
+<body class="ds">
+  <a class="pular-conteudo" href="#ds-conteudo">Pular para o conteúdo</a>
+  <header class="cabecalho ds-cabecalho">
+    <div class="container">
+      <a class="marca" href="index.html" aria-label="Voltar para o site"><svg class="marca__emblema" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="32" r="30.5" class="e-carvao"/>
+        <circle cx="32" cy="32" r="30.5" fill="none" stroke="#c8a26b" stroke-width="1.2" opacity=".55"/>
+        <g transform="rotate(-45 32 32)">
+          <path class="e-creme" d="M29.6 31V11.5Q29.6 7 33.4 7H35q1.6 0 1.4 2l-1.8 22z"/>
+          <path d="M29.6 11v20" stroke="#c8a26b" stroke-width="1.4"/>
+          <circle class="e-dourado" cx="32" cy="33" r="2.4"/>
+          <rect class="e-couro" x="29.6" y="35" width="4.8" height="22" rx="2.4" stroke="#c8a26b" stroke-width="1.3"/>
+        </g>
+        <g transform="rotate(45 32 32)">
+          <path class="e-dourado" d="M31.1 33 28.7 9.6Q29.6 6.6 31.5 7.1L33 33z"/>
+          <path class="e-dourado" d="M32.9 33 35.3 9.6Q34.4 6.6 32.5 7.1L31 33z" opacity=".8"/>
+          <path class="e-traco" d="M31.3 34.6 28.2 40.6M32.7 34.6l3.1 6"/>
+          <circle class="e-traco" cx="26.6" cy="45.6" r="5"/>
+          <circle class="e-traco" cx="37.4" cy="45.6" r="5"/>
+          <circle class="e-carvao" cx="32" cy="33.6" r="1.7" stroke="#c8a26b" stroke-width="1"/>
+        </g>
+      </svg><span class="marca__texto" aria-hidden="true"><span class="marca__nome">LÂMINA FINA</span><span class="marca__sub">DESIGN SYSTEM</span></span></a>
+      <nav class="menu ds-abas" aria-label="Visões do design system">
+        <ul class="menu__lista">
+          <li><a class="menu__link" href="#overview" data-aba="overview">Overview</a></li>
+          <li><a class="menu__link" href="#components" data-aba="components">Components</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--pequeno cabecalho__cta ds-voltar" href="index.html">Ver o site</a>
+    </div>
+  </header>
+
+  <main id="ds-conteudo">
+    <section class="ds-overview" id="overview" aria-label="Overview">
+      <iframe src="index.html" title="Página inicial da Lâmina Fina Barbearia" loading="lazy"></iframe>
+    </section>
+
+    <section class="ds-components secao--carvao" id="components" aria-label="Components" hidden>
+      <aside class="ds-lateral" aria-label="Grupos do catálogo"><ul><li><a href="#ds-cores">Cores</a></li><li><a href="#ds-tipografia">Tipografia</a></li><li><a href="#ds-icones">Ícones</a></li><li><a href="#ds-marca">Marca</a></li><li><a href="#ds-fundos">Backgrounds</a></li><li><a href="#ds-botoes">Botões</a></li><li><a href="#ds-titulos">Títulos</a></li><li><a href="#ds-cards">Cards</a></li><li><a href="#ds-agendamento">Agendamento</a></li><li><a href="#ds-faq">Acordeão</a></li></ul></aside>
+      <div class="ds-principal">
+        <header class="ds-intro">
+          <h1>Lâmina Fina Design System</h1>
+          <p>Escuro, masculino e premium, com acolhimento de bairro: madeira, couro e filetes dourados. Cada amostra abaixo usa o mesmo CSS do site (assets/css/styles.css).</p>
+        </header>
+      <section class="ds-grupo" id="ds-cores" aria-labelledby="ds-cores-t">
+        <h2 id="ds-cores-t">Cores</h2>
+        <p class="ds-desc">Cinco tokens e nenhuma cor fora deles, exceto nas fotos.</p>
+        <div class="ds-grade">
+          <figure class="ds-cor"><span class="ds-cor__amostra" style="background:var(--preto-carvao)"></span>
+            <figcaption><strong>--preto-carvao</strong><code>#151515</code><span>Fundo principal, cabeçalho, rodapé</span></figcaption></figure>
+          <figure class="ds-cor"><span class="ds-cor__amostra" style="background:var(--grafite)"></span>
+            <figcaption><strong>--grafite</strong><code>#2A2A2A</code><span>Cards e seções alternadas</span></figcaption></figure>
+          <figure class="ds-cor"><span class="ds-cor__amostra" style="background:var(--dourado)"></span>
+            <figcaption><strong>--dourado</strong><code>#C8A26B</code><span>Botões, ícones, destaques, filetes</span></figcaption></figure>
+          <figure class="ds-cor"><span class="ds-cor__amostra" style="background:var(--couro)"></span>
+            <figcaption><strong>--couro</strong><code>#6B4A32</code><span>Faixa do clube, etiquetas, destaques em fundo claro</span></figcaption></figure>
+          <figure class="ds-cor"><span class="ds-cor__amostra" style="background:var(--creme)"></span>
+            <figcaption><strong>--creme</strong><code>#F3EBDD</code><span>Títulos em fundo escuro, seções claras, texto</span></figcaption></figure><div class="ds-largo">
+          <table class="ds-tabela">
+            <thead><tr><th>Texto / fundo</th><th>Contraste</th><th>Uso permitido</th></tr></thead>
+            <tbody>
+              <tr><td>Creme sobre carvão</td><td>15,4:1</td><td>Qualquer texto</td></tr>
+              <tr><td>Dourado sobre carvão</td><td>7,7:1</td><td>Qualquer texto (AAA)</td></tr>
+              <tr><td>Dourado sobre grafite</td><td>6,0:1</td><td>Qualquer texto (AA)</td></tr>
+              <tr><td>Carvão sobre dourado</td><td>7,7:1</td><td>Botões</td></tr>
+              <tr><td>Couro sobre creme</td><td>6,7:1</td><td>Destaques em seções claras</td></tr>
+              <tr><td>Dourado sobre couro</td><td>3,3:1</td><td>Só títulos grandes e ícones</td></tr>
+              <tr><td>Dourado sobre creme</td><td>2,0:1</td><td>Não usar em texto</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-tipografia" aria-labelledby="ds-tipografia-t">
+        <h2 id="ds-tipografia-t">Tipografia</h2>
+        <p class="ds-desc">Google Fonts com licença OFL, carregadas com display=swap.</p>
+        <div class="ds-grade">
+          <div class="ds-tipo">
+            <p class="ds-tipo__rotulo">Roboto Slab 700 · títulos</p>
+            <p style="font-family:var(--fonte-titulo);font-weight:700;font-size:3rem;line-height:1.1;margin:0">Seu corte, do seu jeito</p>
+            <p style="font-family:var(--fonte-titulo);font-weight:700;font-size:2rem;margin:0">Nossos Serviços</p>
+            <p style="font-family:var(--fonte-titulo);font-weight:700;font-size:1.25rem;margin:0">Combo Completo</p>
+          </div>
+          <div class="ds-tipo">
+            <p class="ds-tipo__rotulo">Inter 400 a 700 · texto e interface</p>
+            <p style="font-size:1.15rem;margin:0">Corte, barba e acabamento com hora marcada e sem fila.</p>
+            <p style="margin:0">Texto corrido em 16 px com altura de linha 1,6.</p>
+            <p style="font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dourado);margin:0">Rótulo em caixa alta</p>
+          </div>
+          <div class="ds-tipo">
+            <p class="ds-tipo__rotulo">Oswald 500 e 600 · logotipo</p>
+            <span class="marca__texto" style="border:0;padding:0"><span class="marca__nome" style="font-size:2.4rem">LÂMINA FINA</span><span class="marca__sub" style="font-size:1rem">BARBEARIA</span></span>
+          </div>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-icones" aria-labelledby="ds-icones-t">
+        <h2 id="ds-icones-t">Ícones</h2>
+        <p class="ds-desc">Lucide (ISC) em um sprite SVG local: assets/icons/sprite.svg.</p>
+        <div class="ds-grade"><div class="ds-largo"><ul class="ds-icones"><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><code>clock</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-scissors"></use></svg><code>scissors</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg><code>calendar-days</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-users"></use></svg><code>users</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg><code>star</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-snowflake"></use></svg><code>snowflake</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-coffee"></use></svg><code>coffee</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-wifi"></use></svg><code>wifi</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-check"></use></svg><code>check</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg><code>message-circle</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg><code>instagram</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-phone"></use></svg><code>phone</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pin"></use></svg><code>map-pin</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-mail"></use></svg><code>mail</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-qr-code"></use></svg><code>qr-code</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-credit-card"></use></svg><code>credit-card</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-wallet"></use></svg><code>wallet</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-banknote"></use></svg><code>banknote</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-down"></use></svg><code>chevron-down</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-up"></use></svg><code>arrow-up</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-info"></use></svg><code>info</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-menu"></use></svg><code>menu</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg><code>x</code></li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-droplets"></use></svg><code>droplets</code></li></ul></div>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-marca" aria-labelledby="ds-marca-t">
+        <h2 id="ds-marca-t">Marca</h2>
+        <p class="ds-desc">Emblema, poste e coroa desenhados em SVG para este projeto.</p>
+        <div class="ds-grade">
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><a class="marca" href="index.html"><svg class="marca__emblema" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="32" r="30.5" class="e-carvao"/>
+        <circle cx="32" cy="32" r="30.5" fill="none" stroke="#c8a26b" stroke-width="1.2" opacity=".55"/>
+        <g transform="rotate(-45 32 32)">
+          <path class="e-creme" d="M29.6 31V11.5Q29.6 7 33.4 7H35q1.6 0 1.4 2l-1.8 22z"/>
+          <path d="M29.6 11v20" stroke="#c8a26b" stroke-width="1.4"/>
+          <circle class="e-dourado" cx="32" cy="33" r="2.4"/>
+          <rect class="e-couro" x="29.6" y="35" width="4.8" height="22" rx="2.4" stroke="#c8a26b" stroke-width="1.3"/>
+        </g>
+        <g transform="rotate(45 32 32)">
+          <path class="e-dourado" d="M31.1 33 28.7 9.6Q29.6 6.6 31.5 7.1L33 33z"/>
+          <path class="e-dourado" d="M32.9 33 35.3 9.6Q34.4 6.6 32.5 7.1L31 33z" opacity=".8"/>
+          <path class="e-traco" d="M31.3 34.6 28.2 40.6M32.7 34.6l3.1 6"/>
+          <circle class="e-traco" cx="26.6" cy="45.6" r="5"/>
+          <circle class="e-traco" cx="37.4" cy="45.6" r="5"/>
+          <circle class="e-carvao" cx="32" cy="33.6" r="1.7" stroke="#c8a26b" stroke-width="1"/>
+        </g>
+      </svg><span class="marca__texto"><span class="marca__nome">LÂMINA FINA</span><span class="marca__sub">BARBEARIA</span></span></a></div>
+            <figcaption><strong>Emblema</strong><code>svg.marca__emblema</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div style="width:60px"><svg class="poste" viewBox="0 0 40 170" aria-hidden="true" focusable="false">
+        <defs><clipPath id="tubo-ds"><rect x="9" y="22" width="22" height="126"/></clipPath></defs>
+        <rect class="p-dourado" x="14" y="1" width="12" height="7" rx="3.5"/>
+        <rect class="p-dourado" x="5" y="8" width="30" height="14" rx="4"/>
+        <rect class="p-carvao" x="5" y="18" width="30" height="2" opacity=".35"/>
+        <rect class="p-creme" x="9" y="22" width="22" height="126"/>
+        <g clip-path="url(#tubo-ds)"><g class="poste__listras"><polygon class="p-couro" points="9,-16 31,-30 31,-18 9,-4"/><polygon class="p-dourado" points="9,1 31,-13 31,-9 9,5"/><polygon class="p-couro" points="9,16 31,2 31,14 9,28"/><polygon class="p-dourado" points="9,33 31,19 31,23 9,37"/><polygon class="p-couro" points="9,48 31,34 31,46 9,60"/><polygon class="p-dourado" points="9,65 31,51 31,55 9,69"/><polygon class="p-couro" points="9,80 31,66 31,78 9,92"/><polygon class="p-dourado" points="9,97 31,83 31,87 9,101"/><polygon class="p-couro" points="9,112 31,98 31,110 9,124"/><polygon class="p-dourado" points="9,129 31,115 31,119 9,133"/><polygon class="p-couro" points="9,144 31,130 31,142 9,156"/><polygon class="p-dourado" points="9,161 31,147 31,151 9,165"/><polygon class="p-couro" points="9,176 31,162 31,174 9,188"/><polygon class="p-dourado" points="9,193 31,179 31,183 9,197"/><polygon class="p-couro" points="9,208 31,194 31,206 9,220"/><polygon class="p-dourado" points="9,225 31,211 31,215 9,229"/></g></g>
+        <rect class="p-brilho" x="12" y="22" width="4" height="126"/>
+        <rect class="p-carvao" x="27" y="22" width="4" height="126" opacity=".22"/>
+        <rect class="p-dourado" x="5" y="148" width="30" height="14" rx="4"/>
+        <rect class="p-dourado" x="14" y="162" width="12" height="7" rx="3.5"/>
+      </svg></div></div>
+            <figcaption><strong>Poste de barbeiro animado</strong><code>svg.poste .poste__listras</code><span>Listras giram em 4 s; param com prefers-reduced-motion.</span></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-couro">
+            <div class="ds-amostra__palco"><div class="clube" style="border:0;background:none"><svg class="clube__coroa" viewBox="0 0 80 72" aria-hidden="true" focusable="false">
+          <path class="c-dourado" d="M10 52 4 16l18 14L40 6l18 24 18-14-6 36z"/>
+          <rect class="c-dourado" x="9" y="56" width="62" height="9" rx="2"/>
+          <circle class="c-creme" cx="4" cy="15" r="3.5"/><circle class="c-creme" cx="40" cy="6" r="4"/><circle class="c-creme" cx="76" cy="15" r="3.5"/>
+          <path class="c-couro" d="M40 22c-5 6-9 9-9 15a9 9 0 0 0 18 0c0-6-4-9-9-15z"/>
+          <path class="c-dourado" d="M37 36h6v8h-6z" opacity=".9"/>
+          <circle class="c-couro" cx="22" cy="44" r="3"/><circle class="c-couro" cx="58" cy="44" r="3"/>
+        </svg></div></div>
+            <figcaption><strong>Coroa do clube</strong><code>svg.clube__coroa</code></figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-fundos" aria-labelledby="ds-fundos-t">
+        <h2 id="ds-fundos-t">Backgrounds</h2>
+        <p class="ds-desc">Texturas de madeira e couro feitas só com gradientes CSS da paleta.</p>
+        <div class="ds-grade">
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div class="ds-bloco secao--carvao"></div></div>
+            <figcaption><strong>Madeira (carvão)</strong><code>--textura-madeira</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div class="ds-bloco secao--grafite"></div></div>
+            <figcaption><strong>Madeira (grafite)</strong><code>.secao--grafite</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div class="ds-bloco clube"></div></div>
+            <figcaption><strong>Couro</strong><code>.clube / --textura-couro</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><div class="ds-bloco fundo-claro secao"></div></div>
+            <figcaption><strong>Seção clara</strong><code>.fundo-claro.secao</code></figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-botoes" aria-labelledby="ds-botoes-t">
+        <h2 id="ds-botoes-t">Botões</h2>
+        <p class="ds-desc">Altura mínima de 44 px, foco visível em dourado ou couro.</p>
+        <div class="ds-grade">
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><a class="btn" href="#">Agendar horário</a></div>
+            <figcaption><strong>Primário</strong><code>.btn</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><a class="btn btn--brilho" href="#"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg>Agendar agora</a></div>
+            <figcaption><strong>Primário com brilho</strong><code>.btn.btn--brilho</code><span>Inspirado no INT-01 da skill animate.</span></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><a class="btn btn--contorno" href="#">Ver serviços</a></div>
+            <figcaption><strong>Contorno</strong><code>.btn.btn--contorno</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><button class="btn btn--couro" type="button">Agendar combo</button></div>
+            <figcaption><strong>Couro</strong><code>.btn.btn--couro</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn--contorno-escuro" type="button">Voltar</button><button class="btn btn--escuro" type="button">Avançar</button></div></div>
+            <figcaption><strong>Escuro e contorno escuro</strong><code>.btn--escuro / .btn--contorno-escuro</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn--pequeno" type="button">Reservar na loja</button><button class="filtro" aria-pressed="true" type="button">Todos</button><button class="filtro" aria-pressed="false" type="button">Degradê</button></div></div>
+            <figcaption><strong>Pequeno e filtros</strong><code>.btn--pequeno / .filtro</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div style="display:flex;gap:16px;align-items:center"><button class="botao-icone" type="button" aria-label="Instagram" style="color:var(--dourado)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button><button class="flutuante flutuante--whats" style="position:static" type="button" aria-label="WhatsApp"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button></div></div>
+            <figcaption><strong>Ícone e flutuante</strong><code>.botao-icone / .flutuante--whats</code></figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-titulos" aria-labelledby="ds-titulos-t">
+        <h2 id="ds-titulos-t">Títulos</h2>
+        <p class="ds-desc">Filete dourado com losangos como ornamento.</p>
+        <div class="ds-grade">
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><h2 class="titulo-secao" style="margin:0"><span>Nossos Serviços</span></h2></div>
+            <figcaption><strong>Título de seção com filetes</strong><code>.titulo-secao</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><div class="fundo-claro" style="padding:10px"><h2 class="titulo-secao" style="margin:0"><span>Nossos Combos</span></h2></div></div>
+            <figcaption><strong>Título em fundo claro</strong><code>.fundo-claro .titulo-secao</code></figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-cards" aria-labelledby="ds-cards-t">
+        <h2 id="ds-cards-t">Cards</h2>
+        <p class="ds-desc">Componentes repetidos das seções da página inicial.</p>
+        <div class="ds-grade">
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><ul class="servicos__lista" style="grid-template-columns:1fr;margin:0"><li class="servico" tabindex="0"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-scissors"></use></svg><span class="servico__nome">Corte masculino</span><span class="servico__pontos"></span><span class="servico__preco">R$ 45</span><span class="servico__duracao"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Duração: 40 min</span></span></li></ul></div>
+            <figcaption><strong>Item do cardápio</strong><code>.servico</code><span>Passe o mouse para ver a duração.</span></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><article class="combo combo--destaque brilho-borda" style="transform:none;max-width:300px;margin:14px auto 0"><span class="combo__selo">Mais pedido</span><h3>Combo Completo</h3><p class="combo__preco">R$ 95</p><ul class="combo__itens"><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-check"></use></svg>Corte</li><li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-check"></use></svg>Barba</li></ul><button class="btn btn--couro" type="button">Agendar combo</button></article></div>
+            <figcaption><strong>Card de combo em destaque</strong><code>.combo.combo--destaque</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><article class="barbeiro" style="max-width:240px;margin:auto"><div class="barbeiro__foto"><img src="assets/img/barbeiro-diego.webp" alt="" width="600" height="750" loading="lazy"></div><div class="barbeiro__info"><h3>Diego</h3><p>Especialista em degradê</p><button class="botao-icone" type="button" aria-label="Instagram"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button></div></article></div>
+            <figcaption><strong>Card de barbeiro</strong><code>.barbeiro</code><span>Foto em preto e branco que ganha cor no hover.</span></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-couro">
+            <div class="ds-amostra__palco"><ul class="clube__planos" style="grid-template-columns:1fr;max-width:220px;margin:auto"><li class="plano brilho-borda"><span class="plano__nome">Clube Corte</span><span class="plano__preco">R$ 99<small>/mês</small></span></li></ul></div>
+            <figcaption><strong>Plano do clube</strong><code>.plano</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-grafite">
+            <div class="ds-amostra__palco"><div class="depoimento" style="max-width:260px;margin:auto"><div class="depoimento__topo"><span class="avatar">R</span><div class="estrelas"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg></div></div><blockquote><p>“Atendimento top e corte impecável.”</p></blockquote><cite>Rafael, cliente</cite></div></div>
+            <figcaption><strong>Depoimento</strong><code>.depoimento</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><ul class="pagamentos"><li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-qr-code"></use></svg>Pix</li><li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-credit-card"></use></svg>Crédito</li><li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-wallet"></use></svg>Débito</li><li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-banknote"></use></svg>Dinheiro</li></ul></div>
+            <figcaption><strong>Selos de pagamento</strong><code>.selo</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><ul class="produtos__grade" id="ds-produto" style="grid-template-columns:1fr;max-width:180px;margin:auto"></ul></div>
+            <figcaption><strong>Produto</strong><code>.produto</code><span>Frasco genérico em SVG gerado a partir de dados.js.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-agendamento" aria-labelledby="ds-agendamento-t">
+        <h2 id="ds-agendamento-t">Agendamento</h2>
+        <p class="ds-desc">Peças do formulário em 3 passos.</p>
+        <div class="ds-grade">
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><ol class="passos" style="width:100%"><li class="passo is-feito"><span class="passo__num">1</span><span>Serviço</span></li><li class="passo" aria-current="step"><span class="passo__num">2</span><span>Barbeiro</span></li><li class="passo"><span class="passo__num">3</span><span>Dia e horário</span></li></ol></div>
+            <figcaption><strong>Indicador de passos</strong><code>.passos .passo</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><div class="opcoes" style="width:100%"><label class="opcao"><input type="radio" name="ds" checked><span class="opcao__caixa"><span class="opcao__nome">Corte + barba</span><span class="opcao__meta"><strong>R$ 70</strong>1h10</span></span></label><label class="opcao"><input type="radio" name="ds"><span class="opcao__caixa"><span class="opcao__nome">Degradê / fade</span><span class="opcao__meta"><strong>R$ 50</strong>45 min</span></span></label></div></div>
+            <figcaption><strong>Opção (radio)</strong><code>.opcao</code></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div class="calendario" style="display:flex;gap:6px;justify-content:center"><button class="dia" type="button" style="width:40px">12</button><button class="dia is-hoje" type="button" style="width:40px">20</button><button class="dia" aria-pressed="true" type="button" style="width:40px">21</button><button class="dia" disabled type="button" style="width:40px">22</button></div></div>
+            <figcaption><strong>Dias do calendário</strong><code>.dia</code><span>Normal, hoje, selecionado e indisponível.</span></figcaption>
+          </figure>
+          <figure class="ds-amostra ds-fundo-creme">
+            <div class="ds-amostra__palco"><div class="horarios__grade" style="width:100%"><label class="horario"><input type="radio" name="dsh"><span>09:00</span></label><label class="horario"><input type="radio" name="dsh" checked><span>10:00</span></label><label class="horario"><input type="radio" name="dsh" disabled><span>10:30</span></label></div></div>
+            <figcaption><strong>Horários</strong><code>.horario</code></figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="ds-grupo" id="ds-faq" aria-labelledby="ds-faq-t">
+        <h2 id="ds-faq-t">Acordeão</h2>
+        <p class="ds-desc">Elemento nativo details e summary, estilizado.</p>
+        <div class="ds-grade">
+          <figure class="ds-amostra ds-fundo-carvao">
+            <div class="ds-amostra__palco"><div class="faq" style="width:100%"><details open><summary>Preciso agendar ou posso chegar na hora?<svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-down"></use></svg></summary><div class="faq__resposta"><p>Recomendamos o agendamento para evitar espera.</p></div></details><details><summary>Atendem crianças?<svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-down"></use></svg></summary><div class="faq__resposta"><p>Sim.</p></div></details></div></div>
+            <figcaption><strong>Acordeão</strong><code>.faq details</code></figcaption>
+          </figure>
+        </div>
+      </section>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="modal-demo" class="modal" aria-labelledby="modal-demo-titulo"><div class="modal__corpo"><button type="button" class="botao-icone modal__fechar" data-fechar aria-label="Fechar"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg></button><h2 id="modal-demo-titulo">Projeto demonstrativo</h2><p>Este é um projeto demonstrativo.</p></div></dialog>
+  <script src="assets/js/dados.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/design-system.js" defer></script>
+</body>
+</html>

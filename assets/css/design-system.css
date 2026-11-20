@@ -1,0 +1,50 @@
+/* Catálogo do design system: só ajustes de layout. O visual vem de styles.css. */
+.ds { min-height: 100vh; }
+.ds-cabecalho .marca__sub { letter-spacing: 0.2em; }
+.ds-abas { margin-left: auto; }
+.ds .menu-toggle { display: none; }
+@media (max-width: 1020px) {
+  .ds-abas { position: static; display: block; padding: 0; box-shadow: none; border: 0; background: none; }
+  .ds-abas .menu__lista { flex-direction: row; }
+  .ds-abas .menu__link { border: 0; padding: 10px; }
+  .ds-voltar { display: none; }
+}
+@media (max-width: 480px) { .ds-cabecalho .marca__texto { display: none; } }
+.ds-overview iframe { width: 100%; height: calc(100vh - var(--altura-header)); border: 0; display: block; }
+
+.ds-components { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding: 32px var(--gutter) 80px; max-width: 1440px; margin: 0 auto; }
+.ds-lateral ul { list-style: none; position: sticky; top: calc(var(--altura-header) + 20px); display: grid; gap: 2px; border-left: 1px solid rgb(200 162 107 / 0.3); }
+.ds-lateral a { display: block; padding: 8px 14px; text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+.ds-lateral a:hover, .ds-lateral a[aria-current="true"] { color: var(--dourado); border-left: 2px solid var(--dourado); margin-left: -1px; }
+.ds-intro h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+.ds-intro p { max-width: 70ch; }
+.ds-grupo { padding-top: 40px; scroll-margin-top: calc(var(--altura-header) + 10px); }
+.ds-grupo h2 { font-size: 1.6rem; border-bottom: 1px solid rgb(200 162 107 / 0.3); padding-bottom: 8px; }
+.ds-desc { opacity: 0.85; }
+.ds-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.ds-largo { grid-column: 1 / -1; }
+.ds-amostra { margin: 0; border: 1px solid rgb(200 162 107 / 0.3); border-radius: var(--raio-lg); overflow: hidden; display: flex; flex-direction: column; }
+.ds-amostra__palco { flex: 1; display: grid; place-items: center; padding: 24px 18px; min-height: 140px; }
+.ds-amostra figcaption { display: grid; gap: 2px; padding: 10px 14px; background: var(--preto-carvao); color: var(--creme); font-size: 0.85rem; border-top: 1px solid rgb(200 162 107 / 0.3); }
+.ds-amostra code, .ds-cor code, .ds-icones code { color: var(--dourado); font-size: 0.8rem; }
+.ds-fundo-carvao .ds-amostra__palco { background: var(--preto-carvao); }
+.ds-fundo-grafite .ds-amostra__palco { background: var(--grafite); }
+.ds-fundo-couro .ds-amostra__palco { background: var(--couro); }
+.ds-fundo-creme .ds-amostra__palco { background: var(--creme); color: var(--preto-carvao); }
+.ds-bloco { width: 100%; height: 120px; border-radius: var(--raio); padding: 0; }
+.ds-cor { margin: 0; border-radius: var(--raio-lg); overflow: hidden; border: 1px solid rgb(200 162 107 / 0.3); }
+.ds-cor__amostra { display: block; height: 110px; }
+.ds-cor figcaption { display: grid; gap: 2px; padding: 10px 14px; font-size: 0.85rem; background: var(--preto-carvao); }
+.ds-tabela { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.ds-tabela th, .ds-tabela td { text-align: left; padding: 8px 12px; border-bottom: 1px solid rgb(200 162 107 / 0.2); }
+.ds-tabela th { color: var(--dourado); }
+.ds-tipo { grid-column: 1 / -1; padding: 18px; border: 1px solid rgb(200 162 107 / 0.3); border-radius: var(--raio-lg); display: grid; gap: 8px; }
+.ds-tipo__rotulo { margin: 0; font-size: 0.8rem; color: var(--dourado); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.ds-icones { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+.ds-icones li { display: grid; justify-items: center; gap: 6px; padding: 14px 6px; border: 1px solid rgb(200 162 107 / 0.2); border-radius: var(--raio); }
+.ds-icones .icone { width: 28px; height: 28px; color: var(--dourado); }
+@media (max-width: 860px) {
+  .ds-components { grid-template-columns: minmax(0, 1fr); }
+  .ds-lateral ul { position: static; display: flex; flex-wrap: wrap; border: 0; gap: 6px; }
+  .ds-lateral a { border: 1px solid rgb(200 162 107 / 0.3); border-radius: 999px; padding: 4px 12px; }
+}

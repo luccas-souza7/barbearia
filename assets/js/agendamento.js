@@ -279,6 +279,7 @@
     renderHorarios();
     limparErro();
     atualizarResumo();
+    if (typeof ajustarAltura === "function") ajustarAltura();
   }
 
   function renderHorarios() {
@@ -304,17 +305,103 @@
     }).join("");
   }
 
-  /* ---------- Etapa 5: confirmação ---------- */
+  /* ---------- Etapa 5: dados do cliente, clube e confirmação ---------- */
   function barbeiroFinal() {
     return estado.barbeiro === "sem-preferencia" ? estado.barbeiroAtribuido : estado.barbeiro;
   }
   function nomeBarbeiro(id) { return id === "sem-preferencia" ? "Sem preferência" : (barbeirosPorId[id] || {}).nome || ""; }
+
+  var campos = {
+    nome: $("#cliente-nome"),
+    telefone: $("#cliente-telefone"),
+    assinante: $("#cliente-assinante"),
+    cpf: $("#cliente-cpf"),
+    plano: $("#cliente-plano"),
+    blocoClube: $("#dados-clube")
+  };
+  var planosPorId = {};
+  (D.planosClube || []).forEach(function (p) { planosPorId[p.id] = p; });
+  if (campos.plano) {
+    campos.plano.innerHTML = D.planosClube.map(function (p) {
+      return '<option value="' + p.id + '">' + esc(p.nome) + " (" + moeda(p.preco) + "/mês)</option>";
+    }).join("");
+  }
+
+  function soDigitos(v) { return String(v || "").replace(/\D/g, ""); }
+  function mascaraTelefone(v) {
+    var d = soDigitos(v).slice(0, 11);
+    if (d.length <= 2) return d.length ? "(" + d : "";
+    if (d.length <= 6) return "(" + d.slice(0, 2) + ") " + d.slice(2);
+    if (d.length <= 10) return "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6);
+    return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+  }
+  function mascaraCpf(v) {
+    var d = soDigitos(v).slice(0, 11);
+    return d.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  }
+  // Validação dos dígitos verificadores do CPF
+  function cpfValido(v) {
+    var c = soDigitos(v);
+    if (c.length !== 11 || /^(\d)\1{10}$/.test(c)) return false;
+    for (var t = 9; t < 11; t++) {
+      var soma = 0;
+      for (var i = 0; i < t; i++) soma += +c[i] * (t + 1 - i);
+      var dv = ((soma * 10) % 11) % 10;
+      if (dv !== +c[t]) return false;
+    }
+    return true;
+  }
+  function telefoneValido(v) { var d = soDigitos(v); return d.length === 10 || d.length === 11; }
+  function nomeValido(v) { return /[A-Za-zÀ-ÿ]{2,}/.test(String(v || "").trim()) && String(v).trim().length >= 3; }
+
+  // Plano ativo só quando o cliente marcou "assinante" e o CPF é válido
+  function planoAtivo() {
+    if (!campos.assinante || !campos.assinante.checked) return null;
+    if (!cpfValido(campos.cpf.value)) return null;
+    return planosPorId[campos.plano.value] || null;
+  }
+  function servicoCoberto() {
+    var p = planoAtivo();
+    return !!(p && estado.servico && p.cobre.indexOf(estado.servico) !== -1);
+  }
+  function precoServico() {
+    var s = catalogo[estado.servico];
+    if (!s) return 0;
+    return servicoCoberto() ? 0 : s.preco;
+  }
+
+  form.addEventListener("input", function (e) {
+    var t = e.target;
+    if (t === campos.telefone) t.value = mascaraTelefone(t.value);
+    if (t === campos.cpf) {
+      t.value = mascaraCpf(t.value);
+      t.classList.toggle("is-valido", cpfValido(t.value));
+      t.setAttribute("aria-invalid", String(soDigitos(t.value).length === 11 && !cpfValido(t.value)));
+    }
+    if (t === campos.nome || t === campos.telefone || t === campos.cpf) {
+      if (t !== campos.cpf) t.removeAttribute("aria-invalid");
+      limparErro();
+      atualizarResumo();
+      if (estado.etapa === 5) renderTotalConfirmacao();
+    }
+  });
+  if (campos.assinante) {
+    campos.assinante.addEventListener("change", function () {
+      campos.blocoClube.hidden = !campos.assinante.checked;
+      if (campos.assinante.checked) campos.cpf.focus();
+      atualizarResumo();
+      renderTotalConfirmacao();
+      ajustarAltura();
+    });
+    campos.plano.addEventListener("change", function () { atualizarResumo(); renderTotalConfirmacao(); });
+  }
 
   function renderConfirmacao() {
     var s = catalogo[estado.servico];
     var b = barbeirosPorId[barbeiroFinal()];
     var prods = Object.keys(estado.produtos);
     el.confirmacao.innerHTML =
+      '<p class="confirmacao__titulo">Resumo do seu horário</p>' +
       '<div class="confirmacao__bloco"><span class="confirmacao__icone">' + icone(s.icone) + '</span><div><p class="confirmacao__rotulo">' + esc(s.tipo) + "</p>" +
       '<p class="confirmacao__valor">' + esc(s.nome) + "</p>" + (s.itens ? "<p class=\"confirmacao__extra\">" + esc(s.itens.join(" + ")) + "</p>" : "") + "</div>" +
       '<button type="button" class="confirmacao__editar" data-ir="1">Alterar</button></div>' +
@@ -330,7 +417,22 @@
       '<p class="confirmacao__valor">' + (prods.length ? prods.map(function (id) { return estado.produtos[id] + "x " + esc(produtosPorId[id].nome); }).join(", ") : "Nenhum produto") + "</p>" +
       (prods.length ? '<p class="confirmacao__extra">Retirada na barbearia no dia do horário. Sem entrega.</p>' : "") + "</div>" +
       '<button type="button" class="confirmacao__editar" data-ir="4">Alterar</button></div>' +
+      '<div class="confirmacao__total" id="confirmacao-total"></div>' +
       '<p class="aviso-demo aviso-demo--claro">' + icone("info") + "<span>Projeto demonstrativo: ao confirmar, nenhum dado é enviado. O pagamento seria feito na barbearia.</span></p>";
+    renderTotalConfirmacao();
+  }
+  function renderTotalConfirmacao() {
+    var alvo = $("#confirmacao-total");
+    var s = catalogo[estado.servico];
+    if (!alvo || !s) return;
+    var plano = planoAtivo();
+    var nota = "";
+    if (campos.assinante && campos.assinante.checked) {
+      if (!plano) nota = '<p class="confirmacao__clube confirmacao__clube--pendente">' + icone("id-card") + "<span>Digite um CPF válido para validar a assinatura.</span></p>";
+      else if (servicoCoberto()) nota = '<p class="confirmacao__clube">' + icone("shield-check") + "<span>Assinatura validada (" + esc(plano.nome) + "). " + esc(s.nome) + " incluso no plano.</span></p>";
+      else nota = '<p class="confirmacao__clube confirmacao__clube--pendente">' + icone("info") + "<span>Assinatura validada (" + esc(plano.nome) + "), mas " + esc(s.nome) + " não faz parte do plano e será cobrado.</span></p>";
+    }
+    alvo.innerHTML = nota + '<p class="confirmacao__pagar"><span>Total a pagar na barbearia</span><strong>' + moeda(precoServico() + totalProdutos()) + "</strong></p>";
   }
   el.confirmacao.addEventListener("click", function (e) {
     var b = e.target.closest("[data-ir]");
@@ -348,9 +450,12 @@
       el.resumo.innerHTML = '<p class="resumo-pedido__vazio">' + icone("scissors") + "<span>Escolha um serviço ou combo para começar.</span></p>";
       return;
     }
+    var coberto = servicoCoberto();
     if (s) {
-      itens.push(linhaResumo(esc(s.nome) + "<small>" + esc(s.tipo) + " · " + dur(s.duracao) + "</small>", (s.aPartirDe ? "a partir de " : "") + moeda(s.preco), "resumo-pedido__servico"));
-      if (s.avulso && s.avulso > s.preco) itens.push(linhaResumo("Economia do combo", "- " + moeda(s.avulso - s.preco), "resumo-pedido__economia"));
+      itens.push(linhaResumo(esc(s.nome) + "<small>" + esc(s.tipo) + " · " + dur(s.duracao) + "</small>",
+        coberto ? '<s class="resumo-pedido__riscado">' + moeda(s.preco) + "</s> R$ 0" : (s.aPartirDe ? "a partir de " : "") + moeda(s.preco), "resumo-pedido__servico"));
+      if (coberto) itens.push(linhaResumo("Incluso no " + esc(planoAtivo().nome), "- " + moeda(s.preco), "resumo-pedido__economia"));
+      else if (s.avulso && s.avulso > s.preco) itens.push(linhaResumo("Economia do combo", "- " + moeda(s.avulso - s.preco), "resumo-pedido__economia"));
     }
     Object.keys(estado.produtos).forEach(function (id) {
       var p = produtosPorId[id];
@@ -359,19 +464,46 @@
     var detalhes = [];
     if (estado.barbeiro) detalhes.push(icone("user-round") + "<span>" + esc(nomeBarbeiro(estado.barbeiro === "sem-preferencia" && estado.barbeiroAtribuido ? estado.barbeiroAtribuido : estado.barbeiro)) + "</span>");
     if (estado.data) detalhes.push(icone("calendar-days") + "<span>" + esc(dataCurta(dataDeChave(estado.data))) + (estado.hora !== null ? " às " + hhmm(estado.hora) : "") + "</span>");
-    var total = (s ? s.preco : 0) + totalProdutos();
+    var total = precoServico() + totalProdutos();
     el.resumo.innerHTML =
       '<ul class="resumo-pedido__itens">' + itens.join("") + "</ul>" +
       (detalhes.length ? '<p class="resumo-pedido__detalhes">' + detalhes.join("") + "</p>" : "") +
-      '<p class="resumo-pedido__total"><span>Total' + (s && s.aPartirDe ? " estimado" : "") + "</span><strong>" + moeda(total) + "</strong></p>" +
+      '<p class="resumo-pedido__total"><span>Total' + (s && s.aPartirDe && !coberto ? " estimado" : "") + "</span><strong>" + moeda(total) + "</strong></p>" +
       '<p class="resumo-pedido__pagamento">' + icone("store") + "<span>Pagamento na barbearia: Pix, cartão ou dinheiro.</span></p>";
-    var tot = el.resumo.querySelector(".resumo-pedido__total strong");
-    if (tot && tot.animate && !LF.reduzMovimento) tot.animate([{ transform: "scale(1.12)", color: "#c8a26b" }, { transform: "scale(1)" }], { duration: 350, easing: "ease-out" });
   }
+
+  /* ---------- Altura estável entre as etapas ---------- */
+  // Desktop: o painel nunca encolhe (o botão Avançar não pula).
+  // Celular: a altura muda com animação suave, sem saltos.
+  var etapasWrap = document.createElement("div");
+  etapasWrap.className = "agenda__etapas";
+  el.etapas[0].parentNode.insertBefore(etapasWrap, el.etapas[0]);
+  el.etapas.forEach(function (f) { etapasWrap.appendChild(f); });
+  var mqDesktop = window.matchMedia("(min-width: 1021px)");
+  var alturaMinima = 0;
+  function ajustarAltura(alturaAntes) {
+    if (mqDesktop.matches) {
+      etapasWrap.style.height = "";
+      var h = etapasWrap.scrollHeight;
+      if (h > alturaMinima) alturaMinima = h;
+      etapasWrap.style.minHeight = alturaMinima + "px";
+      return;
+    }
+    etapasWrap.style.minHeight = "";
+    if (typeof alturaAntes !== "number" || LF.reduzMovimento || !etapasWrap.animate) return;
+    var depois = etapasWrap.scrollHeight;
+    if (Math.abs(depois - alturaAntes) < 4) return;
+    etapasWrap.style.overflow = "hidden";
+    var anim = etapasWrap.animate([{ height: alturaAntes + "px" }, { height: depois + "px" }], { duration: 320, easing: "cubic-bezier(.2,.7,.2,1)" });
+    anim.onfinish = function () { etapasWrap.style.overflow = ""; };
+  }
+  mqDesktop.addEventListener ? mqDesktop.addEventListener("change", function () { alturaMinima = 0; ajustarAltura(); }) : null;
+  window.addEventListener("resize", function () { if (mqDesktop.matches) { alturaMinima = 0; ajustarAltura(); } });
 
   /* ---------- Navegação entre etapas ---------- */
   function irPara(n, focar) {
     var anterior = estado.etapa;
+    var alturaAntes = etapasWrap.offsetHeight;
     estado.etapa = n;
     el.etapas.forEach(function (f) {
       var num = +f.getAttribute("data-etapa");
@@ -392,11 +524,17 @@
     if (n === 3) { renderCalendario(); renderHorarios(); }
     if (n === 4) renderProdutosAgenda();
     if (n === 5) renderConfirmacao();
+    ajustarAltura(alturaAntes);
     if (focar) {
       var legenda = form.querySelector('.agenda__etapa[data-etapa="' + n + '"] legend');
       if (legenda) { legenda.tabIndex = -1; legenda.focus({ preventScroll: true }); }
+      // Só rola se o topo do formulário saiu da tela
       var topo = form.getBoundingClientRect().top;
-      if (topo < 80) form.scrollIntoView({ behavior: LF.reduzMovimento ? "auto" : "smooth", block: "start" });
+      var cabecalho = document.querySelector(".cabecalho");
+      var limite = (cabecalho ? cabecalho.offsetHeight : 76) + 8;
+      if (topo < limite) {
+        window.scrollTo({ top: window.scrollY + topo - limite - 8, behavior: LF.reduzMovimento ? "auto" : "smooth" });
+      }
     }
     atualizarResumo();
   }
@@ -408,14 +546,22 @@
       if (!estado.data) return erro("Escolha um dia disponível no calendário.");
       if (estado.hora === null) return erro("Escolha um horário livre.", "hora");
     }
+    if (estado.etapa === 5) {
+      if (!nomeValido(campos.nome.value)) return erro("Informe seu nome para o barbeiro saber quem vai atender.", "nome");
+      if (!telefoneValido(campos.telefone.value)) return erro("Informe um telefone com DDD, por exemplo (11) 91234-5678.", "telefone");
+      if (campos.assinante.checked && !cpfValido(campos.cpf.value)) return erro("CPF inválido. Confira os números para validarmos sua assinatura.", "cpf");
+    }
     return true;
   }
   function erro(msg, campo) {
     el.erro.innerHTML = icone("info") + "<span>" + esc(msg) + "</span>";
     form.classList.remove("tremer"); void form.offsetWidth; form.classList.add("tremer");
-    var alvo = campo ? form.querySelector('input[name="' + campo + '"]:not(:disabled)') :
+    var alvo = campo ? form.querySelector('[name="' + campo + '"]:not(:disabled)') :
       el.corpoCal.querySelector('.dia[tabindex="0"]');
-    if (alvo) alvo.focus();
+    if (alvo) {
+      if (alvo.matches("input[type=text], input[type=tel]")) alvo.setAttribute("aria-invalid", "true");
+      alvo.focus();
+    }
     return false;
   }
   function limparErro() { el.erro.textContent = ""; }
@@ -438,7 +584,10 @@
     var prods = Object.keys(estado.produtos).map(function (id) {
       return { nome: produtosPorId[id].nome, qtd: estado.produtos[id], valor: produtosPorId[id].preco * estado.produtos[id] };
     });
-    var total = s.preco + totalProdutos();
+    var plano = planoAtivo();
+    var coberto = servicoCoberto();
+    var total = precoServico() + totalProdutos();
+    // Dados pessoais (nome, telefone, CPF) NÃO entram no registro salvo no navegador
     var registro = {
       servico: s.nome,
       tipo: s.tipo,
@@ -447,11 +596,14 @@
       hora: hhmm(estado.hora),
       fim: hhmm(estado.hora + s.duracao),
       produtos: prods,
-      total: (s.aPartirDe ? "a partir de " : "") + moeda(total),
+      clube: plano ? plano.nome : "",
+      total: (s.aPartirDe && !coberto ? "a partir de " : "") + moeda(total),
       criadoEm: new Date().toISOString()
     };
     el.listaResumo.innerHTML =
-      linha(registro.tipo, registro.servico + " · " + moeda(s.preco)) +
+      linha("Cliente", campos.nome.value.trim() + " · " + campos.telefone.value) +
+      linha(registro.tipo, registro.servico + " · " + (coberto ? "incluso no plano" : moeda(s.preco))) +
+      (plano ? linha("Clube", plano.nome + " (CPF validado)") : "") +
       linha("Barbeiro", registro.barbeiro) +
       linha("Dia", dataExtenso(dataDeChave(registro.data))) +
       linha("Horário", registro.hora + " às " + registro.fim) +
@@ -478,6 +630,8 @@
     estado = estadoInicial();
     estado.produtos = produtos;
     form.reset();
+    if (campos.blocoClube) campos.blocoClube.hidden = true;
+    if (campos.cpf) campos.cpf.classList.remove("is-valido");
     mesVisivel = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
     irPara(1);
   }
@@ -508,32 +662,22 @@
     secao.scrollIntoView({ behavior: LF.reduzMovimento ? "auto" : "smooth", block: "start" });
   }
 
-  /* ---------- "Agendar este combo" e "Adicionar ao agendamento" ---------- */
+  /* ---------- "Agendar este combo" ---------- */
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-agendar-combo]");
-    if (b) {
-      var id = b.getAttribute("data-agendar-combo");
-      reiniciar(true);
-      var radio = form.querySelector('input[name="servico"][value="' + id + '"]');
-      if (radio) { radio.checked = true; estado.servico = id; }
-      atualizarResumo();
-      rolarParaAgenda();
-      LF.toast(catalogo[id].nome + " selecionado. Agora escolha o barbeiro.");
-      if (radio) radio.focus({ preventScroll: true });
-      return;
-    }
-    var p = e.target.closest("[data-add-produto]");
-    if (p) {
-      var pid = p.getAttribute("data-add-produto");
-      estado.produtos[pid] = Math.min(5, (estado.produtos[pid] || 0) + 1);
-      if (estado.etapa === 4) renderProdutosAgenda();
-      atualizarResumo();
-      LF.toast(produtosPorId[pid].nome + " adicionado ao agendamento. Retire na barbearia.");
-      p.classList.add("is-adicionado");
-      setTimeout(function () { p.classList.remove("is-adicionado"); }, 900);
-    }
+    if (!b) return;
+    var id = b.getAttribute("data-agendar-combo");
+    reiniciar(true);
+    var radio = form.querySelector('input[name="servico"][value="' + id + '"]');
+    if (radio) { radio.checked = true; estado.servico = id; }
+    atualizarResumo();
+    rolarParaAgenda();
+    LF.toast(catalogo[id].nome + " selecionado. Agora escolha o barbeiro.");
+    if (radio) radio.focus({ preventScroll: true });
   });
 
   irPara(1);
   mostrarUltimo();
+  // Mede as etapas mais altas no desktop depois que as fontes carregam
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { alturaMinima = 0; ajustarAltura(); });
 })();

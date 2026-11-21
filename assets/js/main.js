@@ -135,7 +135,7 @@
         return '<li class="combo__extra"><span class="combo__item-icone">' + icone("gift") + "</span><span>" + esc(x) + '</span><span class="combo__item-preco">cortesia</span></li>';
       }).join("");
       return '<article class="combo brilho-borda' + (c.destaque ? " combo--destaque" : "") + '">' +
-        (c.destaque ? '<span class="combo__selo">' + icone("star") + esc(c.destaque) + "</span>" : "") +
+        (c.destaque ? '<span class="combo__selo">' + icone("award") + esc(c.destaque) + "</span>" : "") +
         '<header class="combo__cabeca"><p class="combo__chamada">' + esc(c.chamada || "") + "</p><h3>" + esc(c.nome) + "</h3></header>" +
         '<div class="combo__preco">' +
         '<span class="combo__de">Avulso <s>' + moeda(avulso) + "</s></span>" +
@@ -166,21 +166,17 @@
   function renderClube() {
     var alvo = $("#planos-clube");
     if (!alvo || !D.planosClube) return;
+    var nomes = {};
+    (D.servicos || []).forEach(function (x) { nomes[x.id] = x.nome; });
+    (D.combos || []).forEach(function (x) { nomes[x.id] = x.nome; });
     alvo.innerHTML = D.planosClube.map(function (p) {
-      return '<li class="plano brilho-borda"><span class="plano__nome">' + esc(p.nome) + '</span><span class="plano__preco">' + moeda(p.preco) + "<small>/mês</small></span></li>";
-    }).join("");
-  }
-
-  function renderProdutos() {
-    var alvo = $("#grade-produtos");
-    if (!alvo || !D.produtos) return;
-    alvo.innerHTML = D.produtos.map(function (p) {
-      return '<li class="produto brilho-borda">' +
-        '<div class="produto__img">' + frascoSVG(p.tipo, p.rotulo) + "</div>" +
-        "<h3>" + esc(p.nome) + "</h3>" +
-        '<p class="produto__desc">' + esc(p.descricao || "") + "</p>" +
-        '<p class="produto__preco">' + moeda(p.preco) + "</p>" +
-        '<button type="button" class="btn btn--pequeno" data-add-produto="' + esc(p.id) + '">' + icone("plus") + "Adicionar ao agendamento<span class=\"sr-only\">: " + esc(p.nome) + "</span></button></li>";
+      return '<li class="plano brilho-borda' + (p.destaque ? " plano--destaque" : "") + '">' +
+        (p.destaque ? '<span class="plano__selo">' + icone("award") + "Mais completo</span>" : "") +
+        '<p class="plano__nome">' + esc(p.nome) + "</p>" +
+        '<p class="plano__preco">' + moeda(p.preco) + "<small>/mês</small></p>" +
+        '<p class="plano__resumo">' + esc(p.resumo || "") + "</p>" +
+        '<ul class="plano__cobre">' + p.cobre.map(function (id) { return "<li>" + icone("check") + esc(nomes[id] || id) + "</li>"; }).join("") + "</ul>" +
+        '<button type="button" class="btn btn--pequeno plano__cta" data-demo="Assinatura do clube">Quero assinar</button></li>';
     }).join("");
   }
 
@@ -229,7 +225,7 @@
       var n = String(i + 1).padStart(2, "0");
       return '<li class="galeria-h__item">' +
         '<button type="button" class="galeria-h__botao" data-indice="' + i + '" aria-label="Ampliar foto ' + (i + 1) + ": " + esc(g.alt) + '">' +
-        '<img src="' + BASE_IMG + g.arquivo + '-800.webp" srcset="' + BASE_IMG + g.arquivo + "-800.webp 800w, " + BASE_IMG + g.arquivo + '.webp 1600w" sizes="(max-width: 760px) 84vw, 58vw" alt="' + esc(g.alt) + '" width="1600" height="900" loading="lazy" decoding="async">' +
+        '<span class="galeria-h__moldura"><img src="' + BASE_IMG + g.arquivo + '-800.webp" srcset="' + BASE_IMG + g.arquivo + "-800.webp 800w, " + BASE_IMG + g.arquivo + '.webp 1600w" sizes="(max-width: 760px) 78vw, 36vw" alt="' + esc(g.alt) + '" width="1600" height="900" loading="lazy" decoding="async"></span>' +
         '<span class="galeria-h__num" aria-hidden="true">' + n + "</span>" +
         '<span class="galeria-h__lupa" aria-hidden="true">' + icone("plus") + "</span></button></li>";
     }).join("");
@@ -354,7 +350,7 @@
         html.classList.remove("com-abertura", "abertura-fim");
       }, 900);
     }
-    setTimeout(fim, 1150);
+    setTimeout(fim, 1500);
     el.addEventListener("click", fim);
     doc.addEventListener("keydown", fim, { once: true });
     window.addEventListener("wheel", fim, { once: true, passive: true });
@@ -503,6 +499,28 @@
     });
     trilho.addEventListener("click", function (e) { if (moveu) { e.preventDefault(); e.stopPropagation(); } }, true);
     atualizar();
+
+    // Avanço automático em loop: pausa com mouse, foco, toque ou fora da tela
+    if (reduzMovimento) return;
+    var pausado = false, visivel = false, timer = null;
+    function proximo() {
+      if (pausado || !visivel || arrastando) return;
+      var max = trilho.scrollWidth - trilho.clientWidth - 2;
+      if (trilho.scrollLeft >= max) trilho.scrollTo({ left: 0, behavior: "smooth" });
+      else trilho.scrollBy({ left: passo(), behavior: "smooth" });
+    }
+    function iniciar() { clearInterval(timer); timer = setInterval(proximo, 4000); }
+    var carrossel = trilho.closest(".carrossel");
+    carrossel.addEventListener("mouseenter", function () { pausado = true; });
+    carrossel.addEventListener("mouseleave", function () { pausado = false; });
+    carrossel.addEventListener("focusin", function () { pausado = true; });
+    carrossel.addEventListener("focusout", function () { pausado = false; });
+    trilho.addEventListener("touchstart", function () { pausado = true; iniciar(); setTimeout(function () { pausado = false; }, 6000); }, { passive: true });
+    [ant, prox].forEach(function (b) { if (b) b.addEventListener("click", iniciar); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (ents) { visivel = ents[0].isIntersecting; }, { threshold: 0.4 }).observe(trilho);
+    } else { visivel = true; }
+    iniciar();
   }
 
   /* ---------- FAQ: uma pergunta aberta por vez, com animação ---------- */
@@ -620,7 +638,10 @@
         L.marker([cfg.lat, cfg.lng], { icon: pino, title: "Lâmina Fina Barbearia", alt: "Marcador da Lâmina Fina Barbearia" })
           .addTo(mapa)
           .bindPopup("<strong>Lâmina Fina Barbearia</strong><br>" + esc(D.negocio.endereco) + "<br><small>" + esc(D.negocio.enderecoNota || "") + "</small>");
+        mapa.on("click", function () { mapa.scrollWheelZoom.enable(); });
+        mapa.on("mouseout", function () { mapa.scrollWheelZoom.disable(); });
         el.classList.add("mapa--ativo");
+        if (window.innerWidth > 900) mapa.panBy([-Math.round(el.clientWidth * 0.22), 0], { animate: false });
       }).catch(function () { /* fica o link de fallback */ });
     }, { rootMargin: "300px 0px" });
     obs.observe(el);
@@ -631,13 +652,14 @@
   renderCombos();
   renderBarbeiros();
   renderClube();
-  renderProdutos();
   renderDepoimentos();
   renderFaq();
   renderGaleria();
   renderFeed();
   iniciarAbertura();
-  iniciarVideoHero();
+  // O vídeo da hero só começa a baixar depois que a página terminou de carregar (a foto segura a primeira pintura)
+  if (doc.readyState === "complete") setTimeout(iniciarVideoHero, 300);
+  else window.addEventListener("load", function () { setTimeout(iniciarVideoHero, 300); });
   iniciarContadores();
   iniciarGaleria();
   iniciarCarrossel();

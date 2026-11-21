@@ -58,7 +58,7 @@
       </button>
       <nav class="menu" id="menu-principal" aria-label="Menu principal">
         <ul class="menu__lista">
-          <li><a class="menu__link" href="index.html#inicio">Início</a></li><li><a class="menu__link" href="index.html#servicos">Serviços</a></li><li><a class="menu__link" href="index.html#barbeiros">Barbeiros</a></li><li><a class="menu__link" href="index.html#clube">Clube</a></li><li><a class="menu__link" href="index.html#galeria">Galeria</a></li><li><a class="menu__link" href="index.html#contato">Contato</a></li>
+          <li><a class="menu__link" href="index.html#inicio">Início</a></li><li><a class="menu__link" href="index.html#servicos">Serviços</a></li><li><a class="menu__link" href="index.html#barbeiros">Barbeiros</a></li><li><a class="menu__link" href="index.html#clube">Clube</a></li><li><a class="menu__link" href="index.html#galeria">Galeria</a></li><li><a class="menu__link" href="index.html#localizacao">Contato</a></li>
         </ul>
         <a class="btn btn--bloco menu__cta-mobile" href="index.html#agendamento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg>Agendar horário</a>
       </nav>
@@ -84,7 +84,7 @@
         <h2>1. Resumo rápido</h2>
         <ul>
           <li>Neste projeto demonstrativo, <strong>nenhum dado é enviado ou armazenado em servidor</strong>.</li>
-          <li>O agendamento funciona só dentro do seu navegador.</li>
+          <li>O agendamento funciona só dentro do seu navegador. Nome, telefone e CPF digitados não são gravados.</li>
           <li>O site guarda no <code>localStorage</code> apenas a sua escolha sobre o aviso de cookies e o resumo do último agendamento de demonstração.</li>
         </ul>
 
@@ -96,21 +96,24 @@
             <tr><td>Telefone (WhatsApp)</td><td>Confirmar, lembrar, remarcar ou cancelar o horário.</td></tr>
             <tr><td>Serviço escolhido</td><td>Reservar o tempo certo na agenda e preparar o atendimento.</td></tr>
             <tr><td>Dia, horário e barbeiro</td><td>Organizar a agenda da equipe.</td></tr>
+            <tr><td>CPF (só para assinantes do Clube)</td><td>Validar que o agendamento é do titular da assinatura e aplicar os serviços inclusos no plano.</td></tr>
+            <tr><td>Produtos reservados</td><td>Separar os itens para retirada na barbearia.</td></tr>
           </tbody>
         </table>
-        <p>Não seriam pedidos dados sensíveis, documentos ou dados de cartão.</p>
+        <p>O CPF é pedido apenas de quem marca "Sou assinante do Clube". Não seriam pedidos dados sensíveis nem dados de cartão.</p>
+        <p>Por que o CPF e não o telefone? O telefone costuma ser compartilhado com outras pessoas; o CPF é um dado que o titular normalmente não repassa, o que ajuda a evitar que a assinatura seja usada por terceiros.</p>
 
         <h2>3. Finalidade</h2>
         <p>Os dados seriam usados somente para marcar e gerenciar atendimentos, enviar lembretes do horário e, se você autorizar, avisar sobre novidades e promoções da barbearia.</p>
 
         <h2>4. Base legal</h2>
         <ul>
-          <li><strong>Execução de contrato</strong> (art. 7º, V): para marcar e realizar o serviço que você pediu.</li>
+          <li><strong>Execução de contrato</strong> (art. 7º, V): para marcar e realizar o serviço que você pediu e, no caso dos assinantes, para validar a assinatura pelo CPF.</li>
           <li><strong>Consentimento</strong> (art. 7º, I): para mensagens de novidades e promoções, que você pode recusar ou cancelar a qualquer momento.</li>
         </ul>
 
         <h2>5. Como funciona neste projeto demonstrativo</h2>
-        <p>Este site não tem servidor de banco de dados, não usa ferramentas de análise e não envia formulários. Quando você confirma um agendamento, o resumo aparece só na sua tela. Para mostrar "Seu último agendamento" quando você voltar, o site grava esse resumo no <code>localStorage</code> do seu próprio navegador, sem nome nem telefone.</p>
+        <p>Este site não tem servidor de banco de dados, não usa ferramentas de análise e não envia formulários. Quando você confirma um agendamento, o resumo aparece só na sua tela. O CPF é conferido apenas no seu navegador (validação dos dígitos) e descartado em seguida. Para mostrar "Seu último agendamento" quando você voltar, o site grava no <code>localStorage</code> do seu próprio navegador só o serviço, o barbeiro, o dia, o horário, os produtos e o nome do plano, <strong>sem nome, telefone ou CPF</strong>.</p>
         <p>Se você recusar no aviso de cookies, o resumo do agendamento não é gravado. Veja os detalhes na <a href="politica-de-cookies.html">Política de Cookies</a>.</p>
 
         <h2>6. Compartilhamento</h2>
@@ -118,7 +121,7 @@
         <p>Neste projeto, não há compartilhamento. O mapa do rodapé é carregado do OpenStreetMap, que recebe dados técnicos da sua conexão, como acontece com qualquer conteúdo externo.</p>
 
         <h2>7. Prazo de guarda</h2>
-        <p>Os dados de agendamento seriam mantidos por até 12 meses após o último atendimento, para histórico do cliente, e depois excluídos ou anonimizados, salvo obrigação legal de guarda. Os dados do <code>localStorage</code> ficam no seu navegador até você apagá-los.</p>
+        <p>O CPF seria usado só no momento da validação e mantido apenas enquanto a assinatura estiver ativa. Os dados de agendamento seriam mantidos por até 12 meses após o último atendimento, para histórico do cliente, e depois excluídos ou anonimizados, salvo obrigação legal de guarda. Os dados do <code>localStorage</code> ficam no seu navegador até você apagá-los.</p>
 
         <h2>8. Seus direitos (art. 18 da LGPD)</h2>
         <p>Como titular, você pode pedir a qualquer momento:</p>
@@ -172,13 +175,13 @@
           </a>
           <p>Estilo, confiança e tradição no seu bairro.</p>
           <div class="rodape__redes">
-            <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
+            <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-whatsapp"></use></svg></button>
             <button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button>
           </div>
         </div>
         <nav aria-label="Menu do rodapé">
           <h3>Menu</h3>
-          <ul class="rodape__menu"><li><a href="index.html#inicio">Início</a></li><li><a href="index.html#servicos">Serviços</a></li><li><a href="index.html#barbeiros">Barbeiros</a></li><li><a href="index.html#clube">Clube</a></li><li><a href="index.html#galeria">Galeria</a></li><li><a href="index.html#contato">Contato</a></li><li><a href="cuidados.html">Cuidados</a></li></ul>
+          <ul class="rodape__menu"><li><a href="index.html#inicio">Início</a></li><li><a href="index.html#servicos">Serviços</a></li><li><a href="index.html#barbeiros">Barbeiros</a></li><li><a href="index.html#clube">Clube</a></li><li><a href="index.html#galeria">Galeria</a></li><li><a href="index.html#localizacao">Contato</a></li><li><a href="cuidados.html">Cuidados</a></li></ul>
         </nav>
         <div>
           <h3>Contato</h3>
@@ -191,16 +194,9 @@
         <div>
           <h3>Horários</h3>
           <ul class="rodape__contato">
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Aberto de terça a sábado, das 9h às 20h</span></li>
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg><span>Dom e Seg<br>fechado</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span><strong>Terça a sábado:</strong> 9h às 20h</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg><span><strong>Domingo e segunda:</strong> fechado</span></li>
           </ul>
-        </div>
-        <div class="rodape__mapa">
-          <h3>Onde fica</h3>
-          <div class="mapa" id="mapa" role="region" aria-label="Mapa com a localização ilustrativa da barbearia no centro de São Paulo">
-            <a class="mapa__fallback" href="https://www.openstreetmap.org/?mlat=-23.5432&amp;mlon=-46.6429#map=16/-23.5432/-46.6429" target="_blank" rel="noopener"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pinned"></use></svg><span>Ver no OpenStreetMap</span></a>
-          </div>
-          <p>Ponto ilustrativo no centro de São Paulo (projeto fictício).</p>
         </div>
       </div>
 

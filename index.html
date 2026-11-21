@@ -54,26 +54,26 @@
     <div class="abertura__painel abertura__painel--esq"></div>
     <div class="abertura__painel abertura__painel--dir"></div>
     <div class="abertura__centro">
-      <svg class="abertura__poste" viewBox="0 0 60 220" aria-hidden="true" focusable="false">
-          <defs>
-            <clipPath id="tubo-abertura"><rect x="8" y="32" width="44" height="156" rx="4"/></clipPath>
-            <linearGradient id="vidro-abertura" x1="0" x2="1">
-              <stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".3" stop-color="#fff" stop-opacity=".35"/>
-              <stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/>
-            </linearGradient>
-            <linearGradient id="metal-abertura" x1="0" x2="1">
-              <stop offset="0" stop-color="#8a6d45"/><stop offset=".45" stop-color="#e6cc9b"/><stop offset="1" stop-color="#6b4a32"/>
-            </linearGradient>
-          </defs>
-          <circle cx="30" cy="12" r="10" fill="url(#metal-abertura)"/>
-          <rect x="4" y="20" width="52" height="14" rx="4" fill="url(#metal-abertura)"/>
-          <rect x="8" y="32" width="44" height="156" fill="#fff"/>
-          <g clip-path="url(#tubo-abertura)"><g class="abertura__listras" transform="translate(8 0)"><polygon fill="#C8102E" points="0,-24 44,-46 44,-34 0,-12"/><polygon fill="#1D3F8F" points="0,-6 44,-28 44,-22 0,0"/><polygon fill="#C8102E" points="0,12 44,-10 44,2 0,24"/><polygon fill="#1D3F8F" points="0,30 44,8 44,14 0,36"/><polygon fill="#C8102E" points="0,48 44,26 44,38 0,60"/><polygon fill="#1D3F8F" points="0,66 44,44 44,50 0,72"/><polygon fill="#C8102E" points="0,84 44,62 44,74 0,96"/><polygon fill="#1D3F8F" points="0,102 44,80 44,86 0,108"/><polygon fill="#C8102E" points="0,120 44,98 44,110 0,132"/><polygon fill="#1D3F8F" points="0,138 44,116 44,122 0,144"/><polygon fill="#C8102E" points="0,156 44,134 44,146 0,168"/><polygon fill="#1D3F8F" points="0,174 44,152 44,158 0,180"/><polygon fill="#C8102E" points="0,192 44,170 44,182 0,204"/><polygon fill="#1D3F8F" points="0,210 44,188 44,194 0,216"/><polygon fill="#C8102E" points="0,228 44,206 44,218 0,240"/><polygon fill="#1D3F8F" points="0,246 44,224 44,230 0,252"/></g></g>
-          <rect x="8" y="32" width="44" height="156" fill="url(#vidro-abertura)"/>
-          <rect x="4" y="186" width="52" height="14" rx="4" fill="url(#metal-abertura)"/>
-          <circle cx="30" cy="208" r="9" fill="url(#metal-abertura)"/>
+      <div class="abertura__brilho" aria-hidden="true"></div>
+      <svg class="abertura__emblema" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <circle class="abertura__aro" cx="32" cy="32" r="30.5" fill="none" stroke="#c8a26b" stroke-width="1.2" pathLength="1"/>
+          <g class="abertura__ferramentas">
+            <g transform="rotate(-45 32 32)">
+              <path class="e-creme" d="M29.6 31V11.5Q29.6 7 33.4 7H35q1.6 0 1.4 2l-1.8 22z"/>
+              <circle class="e-dourado" cx="32" cy="33" r="2.4"/>
+              <rect class="e-couro" x="29.6" y="35" width="4.8" height="22" rx="2.4" stroke="#c8a26b" stroke-width="1.3"/>
+            </g>
+            <g transform="rotate(45 32 32)">
+              <path class="e-dourado" d="M31.1 33 28.7 9.6Q29.6 6.6 31.5 7.1L33 33z"/>
+              <path class="e-dourado" d="M32.9 33 35.3 9.6Q34.4 6.6 32.5 7.1L31 33z" opacity=".8"/>
+              <path class="e-traco" d="M31.3 34.6 28.2 40.6M32.7 34.6l3.1 6"/>
+              <circle class="e-traco" cx="26.6" cy="45.6" r="5"/>
+              <circle class="e-traco" cx="37.4" cy="45.6" r="5"/>
+            </g>
+          </g>
         </svg>
       <p class="abertura__nome">LÂMINA FINA</p>
+      <p class="abertura__sub">BARBEARIA</p>
     </div>
   </div>
 
@@ -109,7 +109,7 @@
       </button>
       <nav class="menu" id="menu-principal" aria-label="Menu principal">
         <ul class="menu__lista">
-          <li><a class="menu__link" href="#inicio" aria-current="true">Início</a></li><li><a class="menu__link" href="#servicos">Serviços</a></li><li><a class="menu__link" href="#barbeiros">Barbeiros</a></li><li><a class="menu__link" href="#clube">Clube</a></li><li><a class="menu__link" href="#galeria">Galeria</a></li><li><a class="menu__link" href="#contato">Contato</a></li>
+          <li><a class="menu__link" href="#inicio" aria-current="true">Início</a></li><li><a class="menu__link" href="#servicos">Serviços</a></li><li><a class="menu__link" href="#barbeiros">Barbeiros</a></li><li><a class="menu__link" href="#clube">Clube</a></li><li><a class="menu__link" href="#galeria">Galeria</a></li><li><a class="menu__link" href="#localizacao">Contato</a></li>
         </ul>
         <a class="btn btn--bloco menu__cta-mobile" href="#agendamento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg>Agendar horário</a>
       </nav>
@@ -181,6 +181,42 @@
         <h2 class="titulo-secao" id="combos-titulo" data-revelar><span>Nossos Combos</span></h2>
         <p class="subtitulo-secao" data-revelar>Os serviços mais pedidos juntos, com preço de combo e horário garantido.</p>
         <div class="combos__grade" id="grade-combos" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- Clube (logo depois dos combos) -->
+    <section class="clube" id="clube" aria-labelledby="clube-titulo">
+      <div class="container">
+        <div class="clube__cabeca" data-revelar>
+          <svg class="clube__coroa" viewBox="0 0 80 72" aria-hidden="true" focusable="false">
+          <path class="c-dourado" d="M10 52 4 16l18 14L40 6l18 24 18-14-6 36z"/>
+          <rect class="c-dourado" x="9" y="56" width="62" height="9" rx="2"/>
+          <circle class="c-creme" cx="4" cy="15" r="3.5"/><circle class="c-creme" cx="40" cy="6" r="4"/><circle class="c-creme" cx="76" cy="15" r="3.5"/>
+          <path class="c-couro" d="M40 22c-5 6-9 9-9 15a9 9 0 0 0 18 0c0-6-4-9-9-15z"/>
+          <path class="c-dourado" d="M37 36h6v8h-6z" opacity=".9"/>
+          <circle class="c-couro" cx="22" cy="44" r="3"/><circle class="c-couro" cx="58" cy="44" r="3"/>
+        </svg>
+          <div>
+            <p class="clube__selo">Assinatura mensal</p>
+            <h2 id="clube-titulo">Clube Lâmina Fina</h2>
+            <p>Cortes ilimitados e prioridade na agenda. Você paga uma mensalidade e agenda pelo site como qualquer cliente.</p>
+          </div>
+        </div>
+        <div class="clube__grade">
+          <ul class="clube__planos" id="planos-clube" data-stagger></ul>
+          <div class="clube__como" data-revelar>
+            <h3>Já é assinante? Agende assim</h3>
+            <ol class="clube__passos">
+              <li><span class="clube__passo-icone"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-check"></use></svg></span><div><strong>Agende normalmente</strong><p>Escolha o serviço, o barbeiro e o horário aqui no site.</p></div></li>
+              <li><span class="clube__passo-icone"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-id-card"></use></svg></span><div><strong>Informe seu CPF</strong><p>Na confirmação, marque "Sou assinante do Clube" e digite o CPF do titular.</p></div></li>
+              <li><span class="clube__passo-icone"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-shield-check"></use></svg></span><div><strong>Assinatura validada</strong><p>Os serviços do seu plano saem por R$ 0. Produtos e serviços fora do plano são cobrados normalmente.</p></div></li>
+            </ol>
+            <div class="clube__acoes">
+              <a class="btn" href="#agendamento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-check"></use></svg>Agendar como assinante</a>
+              <a class="clube__regras" href="regras-do-clube.html">Ver regras do clube</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -260,7 +296,33 @@
             </fieldset>
 
             <fieldset class="agenda__etapa" data-etapa="5" hidden>
-              <legend>Confira e confirme</legend>
+              <legend>Seus dados e confirmação</legend>
+              <div class="dados-cliente">
+                <div class="campo">
+                  <label for="cliente-nome">Nome completo</label>
+                  <input id="cliente-nome" name="nome" type="text" autocomplete="name" required maxlength="80" placeholder="Como devemos te chamar">
+                </div>
+                <div class="campo">
+                  <label for="cliente-telefone">Telefone (WhatsApp)</label>
+                  <input id="cliente-telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(11) 90000-0000">
+                </div>
+                <label class="assinante">
+                  <input type="checkbox" id="cliente-assinante" name="assinante">
+                  <span class="assinante__caixa" aria-hidden="true"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-check"></use></svg></span>
+                  <span class="assinante__texto"><strong>Sou assinante do Clube Lâmina Fina</strong><small>Informe o CPF do titular para validarmos a assinatura.</small></span>
+                </label>
+                <div class="dados-clube" id="dados-clube" hidden>
+                  <div class="campo">
+                    <label for="cliente-cpf">CPF do titular</label>
+                    <input id="cliente-cpf" name="cpf" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14">
+                  </div>
+                  <div class="campo">
+                    <label for="cliente-plano">Seu plano</label>
+                    <select id="cliente-plano" name="plano"></select>
+                  </div>
+                  <p class="dados-clube__nota"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-shield-check"></use></svg><span>O CPF é usado só para validar a assinatura e não fica salvo neste navegador.</span></p>
+                </div>
+              </div>
               <div class="confirmacao" id="confirmacao"></div>
             </fieldset>
 
@@ -279,51 +341,20 @@
       </div>
     </section>
 
-    <!-- Clube -->
-    <section class="clube" id="clube" aria-labelledby="clube-titulo">
-      <div class="container">
-        <svg class="clube__coroa" viewBox="0 0 80 72" aria-hidden="true" focusable="false">
-          <path class="c-dourado" d="M10 52 4 16l18 14L40 6l18 24 18-14-6 36z"/>
-          <rect class="c-dourado" x="9" y="56" width="62" height="9" rx="2"/>
-          <circle class="c-creme" cx="4" cy="15" r="3.5"/><circle class="c-creme" cx="40" cy="6" r="4"/><circle class="c-creme" cx="76" cy="15" r="3.5"/>
-          <path class="c-couro" d="M40 22c-5 6-9 9-9 15a9 9 0 0 0 18 0c0-6-4-9-9-15z"/>
-          <path class="c-dourado" d="M37 36h6v8h-6z" opacity=".9"/>
-          <circle class="c-couro" cx="22" cy="44" r="3"/><circle class="c-couro" cx="58" cy="44" r="3"/>
-        </svg>
-        <div class="clube__texto" data-revelar>
-          <h2 id="clube-titulo">Clube Lâmina Fina</h2>
-          <p>Assinatura mensal com cortes ilimitados e prioridade na agenda.</p>
-          <a href="regras-do-clube.html">Ver regras do clube</a>
-        </div>
-        <ul class="clube__planos" id="planos-clube" data-stagger></ul>
-        <button type="button" class="btn clube__cta" data-demo="Assinatura do clube">Quero assinar</button>
-      </div>
-    </section>
-
     <!-- Galeria horizontal guiada pela rolagem -->
     <section class="galeria-h" id="galeria" aria-labelledby="galeria-titulo">
       <div class="galeria-h__pin">
         <div class="container galeria-h__topo">
           <div>
             <h2 class="titulo-esquerda" id="galeria-titulo">Nossa Galeria</h2>
-            <p class="galeria-h__dica"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-right"></use></svg><span>Role a página para ver os trabalhos</span></p>
+            <p class="galeria-h__dica" id="galeria-dica"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-right"></use></svg><span>Continue rolando: as fotos passam sozinhas. Toque numa para ampliar.</span></p>
           </div>
-          <p class="galeria-h__contador" aria-hidden="true"><span id="galeria-atual">01</span> / <span id="galeria-total">08</span></p>
+          <p class="galeria-h__contador" aria-hidden="true"><span id="galeria-atual">01</span> / <span id="galeria-total">09</span></p>
         </div>
         <div class="galeria-h__janela">
           <ul class="galeria-h__trilho" id="trilho-galeria"></ul>
         </div>
         <div class="galeria-h__progresso" aria-hidden="true"><span id="galeria-progresso"></span></div>
-      </div>
-    </section>
-
-    <!-- Produtos (vitrine que leva ao agendamento) -->
-    <section class="secao secao--grafite" id="produtos" aria-labelledby="produtos-titulo">
-      <div class="container">
-        <h2 class="titulo-secao" id="produtos-titulo" data-revelar><span>Nossos Produtos</span></h2>
-        <p class="subtitulo-secao" data-revelar>Adicione ao seu agendamento e retire na barbearia. Não fazemos entrega.</p>
-        <ul class="produtos__grade" id="grade-produtos" data-stagger></ul>
-        <p class="produtos__cta"><a class="btn btn--contorno" href="#agendamento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-check"></use></svg>Ir para o agendamento</a></p>
       </div>
     </section>
 
@@ -355,6 +386,28 @@
       </div>
     </section>
 
+    <!-- Localização -->
+    <section class="local" id="localizacao" aria-labelledby="local-titulo">
+      <div class="mapa local__mapa" id="mapa" role="region" aria-label="Mapa com a localização ilustrativa da barbearia no centro de São Paulo">
+        <a class="mapa__fallback" href="https://www.openstreetmap.org/?mlat=-23.5432&amp;mlon=-46.6429#map=16/-23.5432/-46.6429" target="_blank" rel="noopener"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pinned"></use></svg><span>Ver no OpenStreetMap</span></a>
+      </div>
+      <div class="container local__container">
+        <div class="local__cartao" data-revelar>
+          <p class="local__selo">Onde estamos</p>
+          <h2 id="local-titulo">Venha conhecer a barbearia</h2>
+          <dl class="local__lista">
+            <div><dt><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pin"></use></svg>Endereço</dt><dd>Praça da República, Centro, São Paulo-SP<small>Localização ilustrativa (projeto fictício)</small></dd></div>
+            <div><dt><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg>Horários</dt><dd><span class="local__linha"><strong>Terça a sábado:</strong> 9h às 20h</span><span class="local__linha"><strong>Domingo e segunda:</strong> fechado</span></dd></div>
+            <div><dt><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-phone"></use></svg>Contato</dt><dd>(11) 0000-0000 (fictício)</dd></div>
+          </dl>
+          <div class="local__acoes">
+            <a class="btn" href="#agendamento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-check"></use></svg>Agendar horário</a>
+            <a class="btn btn--contorno" href="https://www.openstreetmap.org/?mlat=-23.5432&amp;mlon=-46.6429#map=17/-23.5432/-46.6429" target="_blank" rel="noopener"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-navigation"></use></svg>Abrir no mapa</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta-faixa" aria-labelledby="cta-titulo">
       <div class="cta-faixa__poste" aria-hidden="true"><svg class="poste" viewBox="0 0 40 170" aria-hidden="true" focusable="false">
@@ -371,7 +424,7 @@
       </svg></div>
       <div class="container" data-revelar>
         <h2 id="cta-titulo">Bora dar um tapa no visual?</h2>
-        <button type="button" class="btn btn--brilho" data-demo="WhatsApp"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg>Chamar no WhatsApp</button>
+        <button type="button" class="btn btn--brilho" data-demo="WhatsApp"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-whatsapp"></use></svg>Chamar no WhatsApp</button>
       </div>
     </section>
   </main>
@@ -403,13 +456,13 @@
           </a>
           <p>Estilo, confiança e tradição no seu bairro.</p>
           <div class="rodape__redes">
-            <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
+            <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-whatsapp"></use></svg></button>
             <button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button>
           </div>
         </div>
         <nav aria-label="Menu do rodapé">
           <h3>Menu</h3>
-          <ul class="rodape__menu"><li><a href="#inicio">Início</a></li><li><a href="#servicos">Serviços</a></li><li><a href="#barbeiros">Barbeiros</a></li><li><a href="#clube">Clube</a></li><li><a href="#galeria">Galeria</a></li><li><a href="#contato">Contato</a></li><li><a href="cuidados.html">Cuidados</a></li></ul>
+          <ul class="rodape__menu"><li><a href="#inicio">Início</a></li><li><a href="#servicos">Serviços</a></li><li><a href="#barbeiros">Barbeiros</a></li><li><a href="#clube">Clube</a></li><li><a href="#galeria">Galeria</a></li><li><a href="#localizacao">Contato</a></li><li><a href="cuidados.html">Cuidados</a></li></ul>
         </nav>
         <div>
           <h3>Contato</h3>
@@ -422,16 +475,9 @@
         <div>
           <h3>Horários</h3>
           <ul class="rodape__contato">
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Aberto de terça a sábado, das 9h às 20h</span></li>
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg><span>Dom e Seg<br>fechado</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span><strong>Terça a sábado:</strong> 9h às 20h</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg><span><strong>Domingo e segunda:</strong> fechado</span></li>
           </ul>
-        </div>
-        <div class="rodape__mapa">
-          <h3>Onde fica</h3>
-          <div class="mapa" id="mapa" role="region" aria-label="Mapa com a localização ilustrativa da barbearia no centro de São Paulo">
-            <a class="mapa__fallback" href="https://www.openstreetmap.org/?mlat=-23.5432&amp;mlon=-46.6429#map=16/-23.5432/-46.6429" target="_blank" rel="noopener"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pinned"></use></svg><span>Ver no OpenStreetMap</span></a>
-          </div>
-          <p>Ponto ilustrativo no centro de São Paulo (projeto fictício).</p>
         </div>
       </div>
 

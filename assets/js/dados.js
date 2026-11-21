@@ -13,6 +13,10 @@ window.DADOS = {
     // Marcador do mapa (ponto público e neutro no centro de São Paulo)
     mapa: { lat: -23.5432, lng: -46.6429, zoom: 15 },
     horarioTexto: "Aberto de terça a sábado, das 9h às 20h",
+    horarios: [
+      { dias: "Terça a sábado", horas: "9h às 20h" },
+      { dias: "Domingo e segunda", horas: "Fechado" }
+    ],
     // Agenda: 0 = domingo ... 6 = sábado
     diasFechados: [0, 1],
     abre: 9 * 60,
@@ -24,8 +28,8 @@ window.DADOS = {
   // os caminhos abaixo (ex.: "assets/video/hero.mp4"). Enquanto estiverem
   // vazios, a hero mostra a foto de capa.
   heroVideo: {
-    webm: "",
-    mp4: ""
+    webm: "assets/video/hero.webm",
+    mp4: "assets/video/hero.mp4"
   },
 
   // Serviços avulsos. Os combos abaixo são montados a partir destes ids.
@@ -33,11 +37,11 @@ window.DADOS = {
     { id: "corte", nome: "Corte masculino", preco: 45, duracao: 40, icone: "scissors" },
     { id: "degrade", nome: "Degradê / fade", preco: 50, duracao: 45, icone: "scissors" },
     { id: "barba", nome: "Barba com toalha quente", preco: 35, duracao: 30, icone: "flame" },
-    { id: "sobrancelha", nome: "Sobrancelha na navalha", preco: 15, duracao: 10, icone: "sparkles" },
+    { id: "sobrancelha", nome: "Sobrancelha na navalha", preco: 15, duracao: 10, icone: "eye" },
     { id: "pigmentacao", nome: "Pigmentação", preco: 30, duracao: 20, icone: "droplets" },
     { id: "lavagem", nome: "Lavagem e hidratação", preco: 25, duracao: 20, icone: "droplets" },
     { id: "infantil", nome: "Corte infantil", preco: 35, duracao: 30, icone: "baby" },
-    { id: "platinado", nome: "Platinado", preco: 120, duracao: 120, aPartirDe: true, icone: "sparkles" }
+    { id: "platinado", nome: "Platinado", preco: 120, duracao: 120, aPartirDe: true, icone: "paintbrush" }
   ],
 
   // Cada combo lista os serviços que inclui (ids acima). O preço avulso e a
@@ -78,9 +82,24 @@ window.DADOS = {
     { id: "renan", nome: "Renan", especialidade: "Platinado e química", foto: "barbeiro-renan.webp", posicao: "50% 12%" }
   ],
 
+  // Planos do clube. "cobre" lista os ids de serviços e combos que saem por R$ 0
+  // para o assinante (validado pelo CPF na confirmação do agendamento).
   planosClube: [
-    { id: "clube-corte", nome: "Clube Corte", preco: 99 },
-    { id: "clube-corte-barba", nome: "Clube Corte + Barba", preco: 149 }
+    {
+      id: "clube-corte",
+      nome: "Clube Corte",
+      preco: 99,
+      resumo: "Cortes ilimitados e sobrancelha",
+      cobre: ["corte", "degrade", "infantil", "sobrancelha"]
+    },
+    {
+      id: "clube-corte-barba",
+      nome: "Clube Corte + Barba",
+      preco: 149,
+      resumo: "Tudo do Clube Corte, mais barba",
+      cobre: ["corte", "degrade", "infantil", "sobrancelha", "barba", "combo-basico"],
+      destaque: true
+    }
   ],
 
   // Produtos para retirar na barbearia (não há entrega)
@@ -109,13 +128,14 @@ window.DADOS = {
   // Galeria horizontal (16:9). A ordem aqui é a ordem em que as fotos passam.
   galeria: [
     { arquivo: "galeria-01", alt: "Barbeiro tatuado passando a máquina na nuca de um cliente" },
-    { arquivo: "galeria-02", alt: "Nuca com degradê e desenho feito na máquina, sobre fundo claro" },
-    { arquivo: "galeria-03", alt: "Interior de barbearia com o cliente e o barbeiro refletidos no espelho" },
-    { arquivo: "galeria-04", alt: "Poste de barbeiro vermelho, branco e azul preso à fachada" },
-    { arquivo: "galeria-05", alt: "Barbearia de rua em preto e branco, com o barbeiro fazendo a barba de um cliente" },
-    { arquivo: "galeria-06", alt: "Homem de barba cheia e gorro escuro, de pé ao lado de uma escada" },
-    { arquivo: "galeria-07", alt: "Barbearia antiga de 1935 com cadeira clássica e barbeiro atendendo um cliente" },
-    { arquivo: "galeria-08", alt: "Homem de cabelo longo e barba cheia sorrindo, em preto e branco" }
+    { arquivo: "galeria-02", alt: "Barbeiro fazendo o degradê na lateral com máquina e pente" },
+    { arquivo: "galeria-03", alt: "Cliente recostado na cadeira com espuma de barbear no rosto e no pescoço" },
+    { arquivo: "galeria-04", alt: "Nuca com degradê e desenho feito na máquina, sobre fundo claro" },
+    { arquivo: "galeria-05", alt: "Cadeiras de barbeiro de couro marrom enfileiradas no salão" },
+    { arquivo: "galeria-06", alt: "Close da máquina alinhando o contorno da barba" },
+    { arquivo: "galeria-07", alt: "Poste de barbeiro vermelho, branco e azul preso à fachada" },
+    { arquivo: "galeria-08", alt: "Close do degradê na nuca, com acabamento rente" },
+    { arquivo: "galeria-09", alt: "Homem de barba cheia e gorro escuro, de pé ao lado de uma escada" }
   ],
 
   perguntas: [
@@ -133,7 +153,7 @@ window.DADOS = {
     },
     {
       pergunta: "Como funciona o clube de assinatura?",
-      resposta: "Você paga uma mensalidade e corta quantas vezes quiser no mês, com prioridade na agenda. As regras completas estão na página Regras do Clube."
+      resposta: "Você paga uma mensalidade e usa os serviços do seu plano quantas vezes quiser no mês, com prioridade na agenda. Para agendar, use o site normalmente: na confirmação, marque que é assinante e informe seu CPF para validarmos a assinatura. As regras completas estão na página Regras do Clube."
     },
     {
       pergunta: "Posso remarcar ou cancelar?",

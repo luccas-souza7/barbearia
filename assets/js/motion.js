@@ -10,7 +10,18 @@
   if (!gsap || !ScrollTrigger || reduz) return;
 
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
   var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+  // Durante o tween o CSS não pode ter transição de transform (senão o item "atrasa" e fica deslocado).
+  // No fim, as propriedades inline são limpas: o elemento volta 100% ao CSS original.
+  function semConflito(alvos) {
+    return {
+      onStart: function () { [].concat(alvos).forEach(function (el) { el.classList.add("gsap-anim"); }); },
+      onComplete: function () { [].concat(alvos).forEach(function (el) { el.classList.remove("gsap-anim"); }); },
+      clearProps: "transform,opacity,visibility"
+    };
+  }
 
   /* ---------- Hero: parallax da mídia ao rolar (a entrada do texto é em CSS) ---------- */
   var hero = document.querySelector(".hero");
@@ -41,20 +52,20 @@
       duration: 0.9,
       ease: "power3.out",
       scrollTrigger: { trigger: el, start: "top 86%", once: true }
-    }));
+    }, semConflito(el)));
   });
 
   $$("[data-stagger]").forEach(function (lista) {
     var filhos = Array.prototype.slice.call(lista.children);
     if (!filhos.length || jaPassou(lista)) return;
-    gsap.from(filhos, {
+    gsap.from(filhos, Object.assign({
       opacity: 0,
       y: 46,
       duration: 0.8,
       ease: "power3.out",
       stagger: 0.09,
       scrollTrigger: { trigger: lista, start: "top 86%", once: true }
-    });
+    }, semConflito(filhos)));
   });
 
   // Fotos dos barbeiros: revelação com máscara de baixo para cima
@@ -65,6 +76,7 @@
       duration: 1.1,
       ease: "power4.out",
       delay: i * 0.08,
+      clearProps: "clipPath",
       scrollTrigger: { trigger: foto, start: "top 88%", once: true }
     });
   });
@@ -77,8 +89,8 @@
 
   // Coroa do clube e poste da faixa final acompanham a rolagem
   if (document.querySelector(".clube__coroa")) {
-    gsap.fromTo(".clube__coroa", { rotate: -8, y: 10 }, {
-      rotate: 6, y: -6, ease: "none",
+    gsap.fromTo(".clube__coroa", { rotate: -8 }, {
+      rotate: 6, ease: "none",
       scrollTrigger: { trigger: ".clube", start: "top bottom", end: "bottom top", scrub: true }
     });
   }
@@ -89,7 +101,9 @@
     });
   }
 
-  /* ---------- Galeria horizontal guiada pela rolagem vertical ---------- */
+  /* ---------- Galeria horizontal guiada pela rolagem vertical ----------
+   * A seção trava no centro da tela e os cards passam conforme a página rola;
+   * a dica some depois que a rolagem começa. */
   var galeria = document.querySelector("#galeria");
   var trilho = document.querySelector("#trilho-galeria");
   if (galeria && trilho) {
@@ -97,35 +111,34 @@
     var janela = galeria.querySelector(".galeria-h__janela");
     var atual = document.querySelector("#galeria-atual");
     var barra = document.querySelector("#galeria-progresso");
-    var total = trilho.children.length;
+    var dica = document.querySelector("#galeria-dica");
+    var cards = $$(".galeria-h__item", trilho);
+    var total = cards.length;
     var distancia = function () { return Math.max(0, trilho.scrollWidth - janela.clientWidth); };
 
-    var horizontal = gsap.to(trilho, {
+    gsap.from(cards, Object.assign({
+      opacity: 0, y: 48, scale: 0.94, stagger: 0.06, duration: 0.9, ease: "power3.out",
+      scrollTrigger: { trigger: galeria, start: "top 75%", once: true }
+    }, semConflito(cards)));
+
+    gsap.to(trilho, {
       x: function () { return -distancia(); },
       ease: "none",
       scrollTrigger: {
         trigger: galeria,
-        start: "top top",
+        start: "center center",
         end: function () { return "+=" + distancia(); },
         pin: true,
-        scrub: 0.6,
+        scrub: 1,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: function (self) {
           var n = Math.min(total, Math.floor(self.progress * total) + 1);
           if (atual) atual.textContent = String(n).padStart(2, "0");
           if (barra) barra.style.transform = "scaleX(" + self.progress.toFixed(3) + ")";
+          if (dica) gsap.to(dica, { opacity: self.progress > 0.1 ? 0 : 1, duration: 0.35, overwrite: "auto" });
         }
       }
-    });
-
-    // Cada foto ganha um leve parallax enquanto atravessa a tela
-    $$(".galeria-h__item", trilho).forEach(function (item) {
-      var img = item.querySelector("img");
-      gsap.fromTo(img, { scale: 1.18, xPercent: -6 }, {
-        scale: 1.02, xPercent: 6, ease: "none",
-        scrollTrigger: { trigger: item, containerAnimation: horizontal, start: "left right", end: "right left", scrub: true }
-      });
     });
   }
 

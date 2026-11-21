@@ -16,7 +16,7 @@ O agendamento tem 5 etapas, todo em JavaScript puro (`assets/js/agendamento.js`)
 2. **Barbeiro:** um dos quatro barbeiros, com foto, ou "Sem preferência" (o sistema escolhe o primeiro livre).
 3. **Data e horário:** calendário gerado em JS. O dia de hoje fica destacado. Domingos, segundas e dias que já passaram ficam desabilitados. Os horários vão das 9h às 20h e respeitam a duração do serviço.
 4. **Produtos (opcional):** pomada, óleo, balm e shampoo, com quantidade. O cliente **retira na barbearia** no dia do horário. Não há entrega.
-5. **Confirmação:** revisão de tudo, com botões para alterar cada parte.
+5. **Seus dados e confirmação:** nome e telefone obrigatórios (com máscara e validação) e revisão de tudo, com botões para alterar cada parte. Quem assina o Clube marca "Sou assinante" e informa o **CPF** (validado pelos dígitos verificadores): os serviços do plano saem por R$ 0.
 
 Ao lado do formulário, um **resumo do pedido** acompanha cada escolha: serviço, economia do combo, produtos e total.
 
@@ -25,19 +25,21 @@ Mais detalhes:
 - Os horários "ocupados" saem de um hash determinístico da data, do barbeiro e do horário. A agenda parece real e é sempre a mesma a cada visita.
 - Cada etapa tem validação, mensagem de erro acessível, ícone no indicador de progresso e animação de transição.
 - O calendário funciona pelo teclado (setas, Home, End e Enter).
-- "Agendar este combo" pré-seleciona o combo. "Adicionar ao agendamento", na vitrine de produtos, coloca o produto no pedido.
-- **Nenhum dado é enviado.** O último agendamento fica no `localStorage` (com `try/catch`) para mostrar "Seu último agendamento" na volta. Se o visitante recusar no aviso de cookies, nada é gravado.
+- "Agendar este combo" pré-seleciona o combo.
+- A altura do formulário não "pula" entre as etapas: no desktop o painel não encolhe, e no celular a altura muda com animação suave.
+- **Nenhum dado é enviado.** O último agendamento fica no `localStorage` (com `try/catch`) para mostrar "Seu último agendamento" na volta, **sem nome, telefone ou CPF**. Se o visitante recusar no aviso de cookies, nada é gravado.
 
 ## Outros recursos
 
-- **Abertura com poste de barbeiro:** na primeira visita da sessão, um poste clássico (vermelho, branco e azul) gira e a tela se abre como uma cortina, revelando a hero. Dura menos de 2 segundos e some com qualquer clique, tecla ou rolagem.
-- **Hero em tela cheia** (`100svh`), com suporte a vídeo de fundo (veja `assets/video/LEIA-ME.md`) e foto de capa enquanto não há vídeo.
-- **Galeria horizontal guiada pela rolagem:** a seção fica fixa e as fotos 16:9 passam da primeira à última enquanto a página rola, com contador e barra de progresso. Clique numa foto para ampliar (lightbox com setas, teclado e gesto).
+- **Abertura com a marca:** na primeira visita da sessão, o emblema da Lâmina Fina se desenha em dourado e a tela se abre como uma cortina, revelando a hero. Dura menos de 2 segundos e some com qualquer clique, tecla ou rolagem.
+- **Hero em tela cheia** (`100svh`) com **vídeo de fundo** da barbearia (veja `assets/video/LEIA-ME.md`) e foto de capa enquanto o vídeo carrega.
+- **Clube Lâmina Fina** logo depois dos combos: planos com o que cada um cobre e o passo a passo de como o assinante agenda (CPF na confirmação).
+- **Galeria horizontal guiada pela rolagem:** a seção trava no centro da tela e os cards com moldura passam enquanto a página rola, sem barra de rolagem visível, com contador e barra de progresso. Clique numa foto para ampliar (lightbox com setas, teclado e gesto).
 - **Combos como seção de venda:** preço avulso riscado, economia calculada, itens com ícones e destaque para o combo principal.
-- **Depoimentos** com nota 5,0 no Google, logo do Google, estrelas, data e carrossel com arrasto.
+- **Depoimentos** com nota 5,0 no Google, logo do Google, estrelas, data e carrossel que avança sozinho (pausa com mouse, foco ou toque).
 - **Perguntas frequentes** em accordion animado, com uma pergunta aberta por vez.
-- **Mapa escuro** (Leaflet + OpenStreetMap) com marcador no centro de São Paulo, carregado só quando chega perto da tela.
-- **Formas de pagamento** com os logotipos de Visa, Mastercard e Pix, além de débito e dinheiro.
+- **Seção "Onde estamos"** com mapa escuro grande (Leaflet + OpenStreetMap), marcador no centro de São Paulo, endereço, horários e contato, carregada só quando chega perto da tela.
+- **Formas de pagamento** com os logotipos de Visa, Mastercard e Pix, além de débito e dinheiro, e ícone oficial do WhatsApp nas cores do site.
 - **Transição entre páginas:** View Transitions nativas nos navegadores compatíveis e uma cortina dourada nos demais.
 - Animações de entrada ao rolar, hovers e microinterações em todo o site. Tudo respeita `prefers-reduced-motion`.
 - Páginas de Termos de Uso, Política de Privacidade (LGPD), Política de Cookies, Regras do Clube (com o art. 49 do CDC), um guia de cuidados e uma página 404 personalizada.
@@ -81,7 +83,7 @@ As bibliotecas ficam dentro do projeto (`assets/js/vendor/`), sem depender de CD
 │   │   └── vendor/             # GSAP, ScrollTrigger e Leaflet
 │   ├── img/                    # fotos em WebP, imagem de compartilhamento e print
 │   ├── icons/                  # sprite de ícones e logotipos, favicon
-│   └── video/                  # vídeo da hero (instruções em LEIA-ME.md)
+│   └── video/                  # vídeo da hero (MP4 e WebM) e instruções
 ├── referencia/                 # imagem de referência e wireframe
 ├── sitemap.xml
 ├── robots.txt
@@ -126,7 +128,8 @@ Quase tudo o que muda de um cliente para outro está em **`assets/js/dados.js`**
 - `servicos`: nome, preço, duração e ícone.
 - `combos`: lista de serviços incluídos (por id) e preço. O preço avulso e a economia são calculados sozinhos.
 - `barbeiros`: nome, especialidade, foto e enquadramento da foto (`posicao`).
-- `produtos`, `planosClube`, `avaliacoes`, `depoimentos`, `galeria` e `perguntas`.
+- `planosClube`: preço e lista do que cada plano cobre (ids de serviços e combos).
+- `produtos`, `avaliacoes`, `depoimentos`, `galeria` e `perguntas`.
 
 Para mudar a identidade visual, troque as cinco variáveis de cor no início de `assets/css/styles.css` e as fontes no `<link>` do Google Fonts. Os textos fixos (hero, sobre, rodapé e páginas legais) estão direto nos arquivos HTML.
 
@@ -142,7 +145,7 @@ Depois abra http://localhost:8000 no navegador.
 
 ## Créditos e licença
 
-- Fotos em domínio público (CC0), fontes OFL, ícones Lucide (ISC), GSAP (licença gratuita) e Leaflet (BSD). A lista completa está em [CREDITOS.md](CREDITOS.md).
+- Fotos em domínio público (CC0), vídeo e quadros do Mixkit (licença gratuita), fontes OFL, ícones Lucide (ISC), GSAP (licença gratuita) e Leaflet (BSD). A lista completa está em [CREDITOS.md](CREDITOS.md).
 - Código e textos: todos os direitos reservados, Luccas Souza, 2026. É permitida apenas a visualização para avaliação de portfólio. Veja [LICENSE](LICENSE).
 
 ## Autor

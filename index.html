@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lâmina Fina Barbearia | Corte, barba e agendamento online em Suzano-SP</title>
-  <meta name="description" content="Barbearia de bairro fictícia em Suzano-SP: corte, barba e acabamento com hora marcada. Projeto de portfólio com agendamento online demonstrativo.">
+  <title>Lâmina Fina Barbearia | Corte, barba e agendamento online em São Paulo</title>
+  <meta name="description" content="Barbearia de bairro fictícia em São Paulo: corte, barba e acabamento com hora marcada. Projeto de portfólio com agendamento online demonstrativo.">
   <meta name="theme-color" content="#151515">
   <meta name="author" content="Luccas Souza">
   <link rel="canonical" href="https://luccas-souza7.github.io/barbearia/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Lâmina Fina Barbearia (projeto fictício)">
-  <meta property="og:title" content="Lâmina Fina Barbearia | Corte, barba e agendamento online em Suzano-SP">
-  <meta property="og:description" content="Barbearia de bairro fictícia em Suzano-SP: corte, barba e acabamento com hora marcada. Projeto de portfólio com agendamento online demonstrativo.">
+  <meta property="og:title" content="Lâmina Fina Barbearia | Corte, barba e agendamento online em São Paulo">
+  <meta property="og:description" content="Barbearia de bairro fictícia em São Paulo: corte, barba e acabamento com hora marcada. Projeto de portfólio com agendamento online demonstrativo.">
   <meta property="og:url" content="https://luccas-souza7.github.io/barbearia/">
   <meta property="og:image" content="https://luccas-souza7.github.io/barbearia/assets/img/og-image.jpg">
   <meta property="og:image:width" content="1200">
@@ -24,7 +24,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600&family=Roboto+Slab:wght@700&display=swap">
   <link rel="stylesheet" href="assets/css/styles.css">
-  <link rel="preload" as="image" href="assets/img/hero.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/hero-960.webp" imagesrcset="assets/img/hero-960.webp 960w, assets/img/hero.webp 1920w" imagesizes="100vw" fetchpriority="high">
+  <script>
+    (function () {
+      var d = document.documentElement, mostrar = true;
+      try { mostrar = !sessionStorage.getItem("lf-abertura"); sessionStorage.setItem("lf-abertura", "1"); } catch (e) {}
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) mostrar = false;
+      if (mostrar) d.classList.add("com-abertura");
+    })();
+  </script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -42,17 +50,36 @@
   </script>
 </head>
 <body>
-  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
-
-  <div class="barra-topo">
-    <div class="container">
-      <p class="barra-topo__horario"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Aberto de terça a sábado, das 9h às 20h</span></p>
-      <div class="barra-topo__redes">
-        <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
-        <button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button>
-      </div>
+  <div class="abertura" id="abertura" aria-hidden="true">
+    <div class="abertura__painel abertura__painel--esq"></div>
+    <div class="abertura__painel abertura__painel--dir"></div>
+    <div class="abertura__centro">
+      <svg class="abertura__poste" viewBox="0 0 60 220" aria-hidden="true" focusable="false">
+          <defs>
+            <clipPath id="tubo-abertura"><rect x="8" y="32" width="44" height="156" rx="4"/></clipPath>
+            <linearGradient id="vidro-abertura" x1="0" x2="1">
+              <stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".3" stop-color="#fff" stop-opacity=".35"/>
+              <stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/>
+            </linearGradient>
+            <linearGradient id="metal-abertura" x1="0" x2="1">
+              <stop offset="0" stop-color="#8a6d45"/><stop offset=".45" stop-color="#e6cc9b"/><stop offset="1" stop-color="#6b4a32"/>
+            </linearGradient>
+          </defs>
+          <circle cx="30" cy="12" r="10" fill="url(#metal-abertura)"/>
+          <rect x="4" y="20" width="52" height="14" rx="4" fill="url(#metal-abertura)"/>
+          <rect x="8" y="32" width="44" height="156" fill="#fff"/>
+          <g clip-path="url(#tubo-abertura)"><g class="abertura__listras" transform="translate(8 0)"><polygon fill="#C8102E" points="0,-24 44,-46 44,-34 0,-12"/><polygon fill="#1D3F8F" points="0,-6 44,-28 44,-22 0,0"/><polygon fill="#C8102E" points="0,12 44,-10 44,2 0,24"/><polygon fill="#1D3F8F" points="0,30 44,8 44,14 0,36"/><polygon fill="#C8102E" points="0,48 44,26 44,38 0,60"/><polygon fill="#1D3F8F" points="0,66 44,44 44,50 0,72"/><polygon fill="#C8102E" points="0,84 44,62 44,74 0,96"/><polygon fill="#1D3F8F" points="0,102 44,80 44,86 0,108"/><polygon fill="#C8102E" points="0,120 44,98 44,110 0,132"/><polygon fill="#1D3F8F" points="0,138 44,116 44,122 0,144"/><polygon fill="#C8102E" points="0,156 44,134 44,146 0,168"/><polygon fill="#1D3F8F" points="0,174 44,152 44,158 0,180"/><polygon fill="#C8102E" points="0,192 44,170 44,182 0,204"/><polygon fill="#1D3F8F" points="0,210 44,188 44,194 0,216"/><polygon fill="#C8102E" points="0,228 44,206 44,218 0,240"/><polygon fill="#1D3F8F" points="0,246 44,224 44,230 0,252"/></g></g>
+          <rect x="8" y="32" width="44" height="156" fill="url(#vidro-abertura)"/>
+          <rect x="4" y="186" width="52" height="14" rx="4" fill="url(#metal-abertura)"/>
+          <circle cx="30" cy="208" r="9" fill="url(#metal-abertura)"/>
+        </svg>
+      <p class="abertura__nome">LÂMINA FINA</p>
     </div>
   </div>
+
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+  <div class="transicao" aria-hidden="true"><span></span></div>
 
   <header class="cabecalho">
     <div class="container">
@@ -91,27 +118,18 @@
   </header>
 
   <main id="conteudo">
-    <!-- Hero -->
+    <!-- Hero: vídeo de fundo (opcional) com imagem de fallback -->
     <section class="hero" id="inicio" aria-labelledby="hero-titulo">
-      <div class="hero__foto">
-        <img src="assets/img/hero.webp" alt="Barbeiro tatuado fazendo o degradê com máquina na nuca de um cliente" width="1024" height="683" fetchpriority="high" decoding="async">
+      <div class="hero__midia">
+        <img class="hero__poster" src="assets/img/hero.webp" srcset="assets/img/hero-960.webp 960w, assets/img/hero.webp 1920w" sizes="100vw"
+          alt="Barbeiro fazendo a barba de um cliente com navalha, em close" width="1920" height="1280" fetchpriority="high" decoding="async">
+        <!-- Para usar vídeo: coloque os arquivos em assets/video/ e preencha heroVideo em assets/js/dados.js -->
+        <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" hidden></video>
       </div>
       <div class="container">
-        <div class="hero__poste"><svg class="poste" viewBox="0 0 40 170" aria-hidden="true" focusable="false">
-        <defs><clipPath id="tubo-hero"><rect x="9" y="22" width="22" height="126"/></clipPath></defs>
-        <rect class="p-dourado" x="14" y="1" width="12" height="7" rx="3.5"/>
-        <rect class="p-dourado" x="5" y="8" width="30" height="14" rx="4"/>
-        <rect class="p-carvao" x="5" y="18" width="30" height="2" opacity=".35"/>
-        <rect class="p-creme" x="9" y="22" width="22" height="126"/>
-        <g clip-path="url(#tubo-hero)"><g class="poste__listras"><polygon class="p-couro" points="9,-16 31,-30 31,-18 9,-4"/><polygon class="p-dourado" points="9,1 31,-13 31,-9 9,5"/><polygon class="p-couro" points="9,16 31,2 31,14 9,28"/><polygon class="p-dourado" points="9,33 31,19 31,23 9,37"/><polygon class="p-couro" points="9,48 31,34 31,46 9,60"/><polygon class="p-dourado" points="9,65 31,51 31,55 9,69"/><polygon class="p-couro" points="9,80 31,66 31,78 9,92"/><polygon class="p-dourado" points="9,97 31,83 31,87 9,101"/><polygon class="p-couro" points="9,112 31,98 31,110 9,124"/><polygon class="p-dourado" points="9,129 31,115 31,119 9,133"/><polygon class="p-couro" points="9,144 31,130 31,142 9,156"/><polygon class="p-dourado" points="9,161 31,147 31,151 9,165"/><polygon class="p-couro" points="9,176 31,162 31,174 9,188"/><polygon class="p-dourado" points="9,193 31,179 31,183 9,197"/><polygon class="p-couro" points="9,208 31,194 31,206 9,220"/><polygon class="p-dourado" points="9,225 31,211 31,215 9,229"/></g></g>
-        <rect class="p-brilho" x="12" y="22" width="4" height="126"/>
-        <rect class="p-carvao" x="27" y="22" width="4" height="126" opacity=".22"/>
-        <rect class="p-dourado" x="5" y="148" width="30" height="14" rx="4"/>
-        <rect class="p-dourado" x="14" y="162" width="12" height="7" rx="3.5"/>
-      </svg></div>
         <div class="hero__conteudo">
-          <p class="hero__selo">Barbearia de bairro em Suzano-SP</p>
-          <h1 id="hero-titulo">Seu corte, do seu jeito, no seu bairro</h1>
+          <p class="hero__selo">Barbearia de bairro em São Paulo-SP</p>
+          <h1 id="hero-titulo"><span class="linha">Seu corte, do seu jeito,</span> <span class="linha">no seu bairro</span></h1>
           <p class="hero__sub">Corte, barba e acabamento com hora marcada e sem fila.</p>
           <div class="hero__acoes">
             <a class="btn btn--brilho" href="#agendamento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg>Agendar agora</a>
@@ -119,27 +137,28 @@
           </div>
         </div>
       </div>
+      <a class="hero__rolar" href="#numeros" aria-label="Rolar para o conteúdo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-down"></use></svg></a>
     </section>
 
     <!-- Números -->
-    <section class="numeros" aria-label="A barbearia em números">
-      <ul class="numeros__lista container">
+    <section class="numeros" id="numeros" aria-label="A barbearia em números">
+      <ul class="numeros__lista container" data-stagger>
         <li class="numeros__item"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-scissors"></use></svg><div><span class="numeros__valor"><span aria-hidden="true" data-contar="8000" data-prefixo="+">+8.000</span><span class="sr-only">Mais de 8.000</span></span><span class="numeros__rotulo">cortes realizados</span></div></li>
         <li class="numeros__item"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg><div><span class="numeros__valor"><span aria-hidden="true" data-contar="6" data-sufixo=" anos">6 anos</span><span class="sr-only">6 anos</span></span><span class="numeros__rotulo">no bairro</span></div></li>
         <li class="numeros__item"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-users"></use></svg><div><span class="numeros__valor"><span aria-hidden="true" data-contar="4" data-sufixo=" barbeiros">4 barbeiros</span><span class="sr-only">4 barbeiros</span></span><span class="numeros__rotulo">na equipe</span></div></li>
-        <li class="numeros__item"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg><div><span class="numeros__valor"><span aria-hidden="true" data-contar="4.9" data-casas="1" data-prefixo="Nota ">Nota 4,9</span><span class="sr-only">Nota 4,9</span></span><span class="numeros__rotulo">no Google</span></div></li>
+        <li class="numeros__item"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-star"></use></svg><div><span class="numeros__valor"><span aria-hidden="true" data-contar="5" data-casas="1" data-prefixo="Nota ">Nota 5,0</span><span class="sr-only">Nota 5,0</span></span><span class="numeros__rotulo">no Google</span></div></li>
       </ul>
     </section>
 
     <!-- Sobre -->
     <section class="sobre" id="sobre" aria-labelledby="sobre-titulo">
-      <div class="sobre__foto revelar revelar--esquerda">
+      <div class="sobre__foto" data-revelar="esquerda">
         <img src="assets/img/salao.webp" alt="Salão de barbearia clássico com cadeira de couro, bancada de madeira e luz quente" width="1024" height="683" loading="lazy" decoding="async">
       </div>
-      <div class="sobre__texto">
-        <h2 id="sobre-titulo" class="revelar">Tradição de barbearia com estilo de hoje</h2>
-        <p class="revelar" style="--atraso:100ms">Mais que um corte, um espaço pra você se sentir bem, relaxar e sair ainda mais confiante. Aqui a navalha é afiada, o papo é bom e o horário marcado é respeitado.</p>
-        <ul class="destaques revelar" style="--atraso:200ms">
+      <div class="sobre__texto" data-stagger>
+        <h2 id="sobre-titulo">Tradição de barbearia com estilo de hoje</h2>
+        <p>Mais que um corte, um espaço pra você se sentir bem, relaxar e sair ainda mais confiante. Aqui a navalha é afiada, o papo é bom e o horário marcado é respeitado.</p>
+        <ul class="destaques">
           <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-snowflake"></use></svg><span>Ambiente climatizado</span></li>
           <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-coffee"></use></svg><span>Café e cerveja gelada</span></li>
           <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-wifi"></use></svg><span>Wi-Fi e TV com futebol</span></li>
@@ -150,94 +169,113 @@
     <!-- Serviços -->
     <section class="secao secao--carvao" id="servicos" aria-labelledby="servicos-titulo">
       <div class="container">
-        <h2 class="titulo-secao revelar" id="servicos-titulo"><span>Nossos Serviços</span></h2>
-        <ul class="servicos__lista revelar" id="lista-servicos"></ul>
-        <p class="servicos__nota">Passe o mouse ou o foco do teclado sobre um serviço para ver a duração.</p>
+        <h2 class="titulo-secao" id="servicos-titulo" data-revelar><span>Nossos Serviços</span></h2>
+        <p class="subtitulo-secao" data-revelar>Valores avulsos. Nos combos abaixo você economiza.</p>
+        <ul class="servicos__lista" id="lista-servicos" data-stagger></ul>
       </div>
     </section>
 
     <!-- Combos -->
-    <section class="secao fundo-claro" id="combos" aria-labelledby="combos-titulo">
+    <section class="secao fundo-claro combos" id="combos" aria-labelledby="combos-titulo">
       <div class="container">
-        <h2 class="titulo-secao revelar" id="combos-titulo"><span>Nossos Combos</span></h2>
-        <div class="combos__grade" id="grade-combos"></div>
+        <h2 class="titulo-secao" id="combos-titulo" data-revelar><span>Nossos Combos</span></h2>
+        <p class="subtitulo-secao" data-revelar>Os serviços mais pedidos juntos, com preço de combo e horário garantido.</p>
+        <div class="combos__grade" id="grade-combos" data-stagger></div>
       </div>
     </section>
 
     <!-- Barbeiros -->
     <section class="secao secao--carvao" id="barbeiros" aria-labelledby="barbeiros-titulo">
       <div class="container">
-        <h2 class="titulo-secao revelar" id="barbeiros-titulo"><span>Nossos Barbeiros</span></h2>
-        <div class="barbeiros__grade" id="grade-barbeiros"></div>
+        <h2 class="titulo-secao" id="barbeiros-titulo" data-revelar><span>Nossos Barbeiros</span></h2>
+        <div class="barbeiros__grade" id="grade-barbeiros" data-stagger></div>
       </div>
     </section>
 
     <!-- Agendamento -->
-    <section class="secao fundo-claro" id="agendamento" aria-labelledby="agenda-titulo">
+    <section class="secao fundo-claro agenda" id="agendamento" aria-labelledby="agenda-titulo">
       <div class="container">
-        <div class="agenda__topo">
-          <div class="agenda__titulo">
-            <svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-scissors"></use></svg>
-            <div>
-              <h2 id="agenda-titulo">Agende seu horário online</h2>
-              <p>Rápido, fácil e sem complicação.</p>
-            </div>
-          </div>
-          <ol class="passos" aria-label="Etapas do agendamento">
-            <li class="passo" aria-current="step"><span class="passo__num">1</span><span class="passo__rotulo">Escolha o serviço</span></li>
-            <li class="passo"><span class="passo__num">2</span><span class="passo__rotulo">Escolha o barbeiro</span></li>
-            <li class="passo"><span class="passo__num">3</span><span class="passo__rotulo">Escolha dia e horário</span></li>
-          </ol>
+        <div class="agenda__cabeca" data-revelar>
+          <h2 class="titulo-secao" id="agenda-titulo"><span>Agende seu horário online</span></h2>
+          <p class="subtitulo-secao">Rápido, fácil e sem complicação. Escolha o serviço, o barbeiro e o horário, e reserve produtos para retirar na hora.</p>
         </div>
+
+        <ol class="passos" data-revelar>
+          <li class="passo" data-passo="1"><span class="passo__num"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-scissors"></use></svg></span><span class="passo__rotulo">Serviço</span></li>
+          <li class="passo" data-passo="2"><span class="passo__num"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-user-round"></use></svg></span><span class="passo__rotulo">Barbeiro</span></li>
+          <li class="passo" data-passo="3"><span class="passo__num"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-days"></use></svg></span><span class="passo__rotulo">Data e horário</span></li>
+          <li class="passo" data-passo="4"><span class="passo__num"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-shopping-bag"></use></svg></span><span class="passo__rotulo">Produtos</span></li>
+          <li class="passo" data-passo="5"><span class="passo__num"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-circle-check"></use></svg></span><span class="passo__rotulo">Confirmação</span></li>
+        </ol>
+        <div class="passos__barra" aria-hidden="true"><span id="passos-progresso"></span></div>
 
         <div id="ultimo-agendamento" class="ultimo-agendamento" role="status" hidden></div>
 
-        <form id="form-agenda" class="agenda__painel" novalidate aria-labelledby="agenda-titulo">
-          <fieldset class="agenda__etapa" data-etapa="1">
-            <legend>1. Escolha o serviço ou combo</legend>
-            <div class="opcoes" id="opcoes-servico"></div>
-          </fieldset>
+        <div class="agenda__grade">
+          <form id="form-agenda" class="agenda__painel" novalidate aria-labelledby="agenda-titulo">
+            <p class="agenda__etapa-indice" id="agenda-etapa-indice" aria-live="polite">Etapa 1 de 5</p>
 
-          <fieldset class="agenda__etapa" data-etapa="2" hidden>
-            <legend>2. Escolha o barbeiro</legend>
-            <div class="opcoes" id="opcoes-barbeiro"></div>
-          </fieldset>
+            <fieldset class="agenda__etapa" data-etapa="1">
+              <legend>Escolha o serviço ou combo</legend>
+              <div class="opcoes" id="opcoes-servico"></div>
+            </fieldset>
 
-          <fieldset class="agenda__etapa" data-etapa="3" hidden>
-            <legend>3. Escolha o dia e o horário</legend>
-            <div class="agenda__data-hora">
-              <div class="calendario">
-                <div class="calendario__topo">
-                  <button type="button" class="calendario__nav" id="calendario-ant" aria-label="Mês anterior"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-left"></use></svg></button>
-                  <h3 class="calendario__mes" id="calendario-mes" aria-live="polite">Mês</h3>
-                  <button type="button" class="calendario__nav" id="calendario-prox" aria-label="Próximo mês"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-right"></use></svg></button>
+            <fieldset class="agenda__etapa" data-etapa="2" hidden>
+              <legend>Com quem você quer cortar?</legend>
+              <div class="opcoes opcoes--barbeiros" id="opcoes-barbeiro"></div>
+            </fieldset>
+
+            <fieldset class="agenda__etapa" data-etapa="3" hidden>
+              <legend>Escolha o dia e o horário</legend>
+              <div class="agenda__data-hora">
+                <div class="calendario">
+                  <div class="calendario__topo">
+                    <button type="button" class="calendario__nav" id="calendario-ant" aria-label="Mês anterior"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-left"></use></svg></button>
+                    <h3 class="calendario__mes" id="calendario-mes" aria-live="polite">Mês</h3>
+                    <button type="button" class="calendario__nav" id="calendario-prox" aria-label="Próximo mês"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-right"></use></svg></button>
+                  </div>
+                  <table class="calendario__grade" aria-labelledby="calendario-mes">
+                    <thead><tr>
+                      <th scope="col"><abbr title="Domingo">D</abbr></th><th scope="col"><abbr title="Segunda">S</abbr></th>
+                      <th scope="col"><abbr title="Terça">T</abbr></th><th scope="col"><abbr title="Quarta">Q</abbr></th>
+                      <th scope="col"><abbr title="Quinta">Q</abbr></th><th scope="col"><abbr title="Sexta">S</abbr></th>
+                      <th scope="col"><abbr title="Sábado">S</abbr></th>
+                    </tr></thead>
+                    <tbody id="calendario-corpo"></tbody>
+                  </table>
+                  <p class="calendario__legenda"><span><i class="leg-hoje"></i>Hoje</span><span><i class="leg-sel"></i>Selecionado</span><span>Dom e Seg: fechado</span></p>
+                  <p class="sr-only">Use as setas do teclado para mudar de dia e Enter para escolher.</p>
                 </div>
-                <table class="calendario__grade" aria-labelledby="calendario-mes">
-                  <thead><tr>
-                    <th scope="col"><abbr title="Domingo">D</abbr></th><th scope="col"><abbr title="Segunda">S</abbr></th>
-                    <th scope="col"><abbr title="Terça">T</abbr></th><th scope="col"><abbr title="Quarta">Q</abbr></th>
-                    <th scope="col"><abbr title="Quinta">Q</abbr></th><th scope="col"><abbr title="Sexta">S</abbr></th>
-                    <th scope="col"><abbr title="Sábado">S</abbr></th>
-                  </tr></thead>
-                  <tbody id="calendario-corpo"></tbody>
-                </table>
-                <p class="calendario__legenda"><span><i class="leg-hoje"></i>Hoje</span><span><i class="leg-sel"></i>Selecionado</span><span>Dom e Seg: fechado</span></p>
-                <p class="sr-only">Use as setas do teclado para mudar de dia e Enter para escolher.</p>
+                <div class="horarios">
+                  <p class="horarios__titulo" id="horarios-titulo">Horários disponíveis</p>
+                  <div class="horarios__grade" id="grade-horarios" role="radiogroup" aria-labelledby="horarios-titulo"></div>
+                </div>
               </div>
-              <div class="horarios">
-                <p class="horarios__titulo" id="horarios-titulo">Horários disponíveis</p>
-                <div class="horarios__grade" id="grade-horarios" role="radiogroup" aria-labelledby="horarios-titulo"></div>
-              </div>
-            </div>
-          </fieldset>
+            </fieldset>
 
-          <div class="agenda__resumo-linha" id="resumo-linha" aria-live="polite" hidden></div>
-          <p class="agenda__erro" id="agenda-erro" role="alert"></p>
-          <div class="agenda__acoes">
-            <button type="button" class="btn btn--contorno-escuro" id="agenda-voltar" hidden><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-left"></use></svg>Voltar</button>
-            <button type="submit" class="btn btn--escuro" id="agenda-avancar">Avançar</button>
-          </div>
-        </form>
+            <fieldset class="agenda__etapa" data-etapa="4" hidden>
+              <legend>Quer levar algum produto?</legend>
+              <p class="agenda__nota"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-store"></use></svg><span>Opcional. O produto fica separado e você <strong>retira na barbearia</strong> no dia do seu horário, pagando junto com o serviço. Não fazemos entrega.</span></p>
+              <ul class="produtos-agenda" id="produtos-agenda"></ul>
+            </fieldset>
+
+            <fieldset class="agenda__etapa" data-etapa="5" hidden>
+              <legend>Confira e confirme</legend>
+              <div class="confirmacao" id="confirmacao"></div>
+            </fieldset>
+
+            <p class="agenda__erro" id="agenda-erro" role="alert"></p>
+            <div class="agenda__acoes">
+              <button type="button" class="btn btn--contorno-escuro" id="agenda-voltar" hidden><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-left"></use></svg>Voltar</button>
+              <button type="submit" class="btn btn--escuro" id="agenda-avancar">Avançar</button>
+            </div>
+          </form>
+
+          <aside class="resumo-pedido" aria-labelledby="resumo-titulo">
+            <h3 id="resumo-titulo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-receipt"></use></svg>Seu pedido</h3>
+            <div id="resumo-pedido" aria-live="polite"></div>
+          </aside>
+        </div>
       </div>
     </section>
 
@@ -252,49 +290,68 @@
           <path class="c-dourado" d="M37 36h6v8h-6z" opacity=".9"/>
           <circle class="c-couro" cx="22" cy="44" r="3"/><circle class="c-couro" cx="58" cy="44" r="3"/>
         </svg>
-        <div class="clube__texto revelar">
+        <div class="clube__texto" data-revelar>
           <h2 id="clube-titulo">Clube Lâmina Fina</h2>
           <p>Assinatura mensal com cortes ilimitados e prioridade na agenda.</p>
           <a href="regras-do-clube.html">Ver regras do clube</a>
         </div>
-        <ul class="clube__planos revelar" id="planos-clube" aria-label="Planos do clube" style="--atraso:120ms"></ul>
+        <ul class="clube__planos" id="planos-clube" data-stagger></ul>
         <button type="button" class="btn clube__cta" data-demo="Assinatura do clube">Quero assinar</button>
       </div>
     </section>
 
-    <!-- Galeria + Produtos -->
-    <section class="secao secao--carvao" aria-label="Galeria e produtos">
-      <div class="container duas-colunas">
-        <div id="galeria">
-          <h2 class="titulo-esquerda">Nossa Galeria</h2>
-          <div class="filtros" id="filtros-galeria" role="group" aria-label="Filtrar fotos por estilo"></div>
-          <p class="sr-only" id="status-galeria" aria-live="polite"></p>
-          <ul class="galeria__grade" id="grade-galeria"></ul>
+    <!-- Galeria horizontal guiada pela rolagem -->
+    <section class="galeria-h" id="galeria" aria-labelledby="galeria-titulo">
+      <div class="galeria-h__pin">
+        <div class="container galeria-h__topo">
+          <div>
+            <h2 class="titulo-esquerda" id="galeria-titulo">Nossa Galeria</h2>
+            <p class="galeria-h__dica"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-right"></use></svg><span>Role a página para ver os trabalhos</span></p>
+          </div>
+          <p class="galeria-h__contador" aria-hidden="true"><span id="galeria-atual">01</span> / <span id="galeria-total">08</span></p>
         </div>
-        <div id="produtos">
-          <h2 class="titulo-esquerda">Nossos Produtos</h2>
-          <ul class="produtos__grade" id="grade-produtos"></ul>
+        <div class="galeria-h__janela">
+          <ul class="galeria-h__trilho" id="trilho-galeria"></ul>
+        </div>
+        <div class="galeria-h__progresso" aria-hidden="true"><span id="galeria-progresso"></span></div>
+      </div>
+    </section>
+
+    <!-- Produtos (vitrine que leva ao agendamento) -->
+    <section class="secao secao--grafite" id="produtos" aria-labelledby="produtos-titulo">
+      <div class="container">
+        <h2 class="titulo-secao" id="produtos-titulo" data-revelar><span>Nossos Produtos</span></h2>
+        <p class="subtitulo-secao" data-revelar>Adicione ao seu agendamento e retire na barbearia. Não fazemos entrega.</p>
+        <ul class="produtos__grade" id="grade-produtos" data-stagger></ul>
+        <p class="produtos__cta"><a class="btn btn--contorno" href="#agendamento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-calendar-check"></use></svg>Ir para o agendamento</a></p>
+      </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="secao secao--carvao depoimentos" id="depoimentos" aria-labelledby="depoimentos-titulo">
+      <div class="container">
+        <div class="depoimentos__cabeca" data-revelar>
+          <div>
+            <h2 class="titulo-esquerda" id="depoimentos-titulo">O que dizem nossos clientes</h2>
+            <p class="depoimentos__aviso">Avaliações ilustrativas (projeto fictício).</p>
+          </div>
+          <div class="nota-google" id="nota-google"></div>
+        </div>
+        <div class="carrossel" role="region" aria-roledescription="carrossel" aria-label="Carrossel de depoimentos">
+          <ul class="carrossel__trilho" id="trilho-depoimentos" tabindex="0" aria-label="Depoimentos de clientes. Use as setas para navegar." data-stagger></ul>
+          <div class="carrossel__controles">
+            <button type="button" class="carrossel__seta carrossel__seta--ant" aria-label="Depoimento anterior"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-left"></use></svg></button>
+            <button type="button" class="carrossel__seta carrossel__seta--prox" aria-label="Próximo depoimento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-right"></use></svg></button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Depoimentos + FAQ -->
-    <section class="secao secao--grafite" aria-label="Depoimentos e perguntas frequentes">
-      <div class="container duas-colunas">
-        <div>
-          <h2 class="titulo-esquerda" id="depoimentos-titulo">Depoimentos</h2>
-          <div class="carrossel" role="region" aria-roledescription="carrossel" aria-labelledby="depoimentos-titulo">
-            <ul class="carrossel__trilho" id="trilho-depoimentos" tabindex="0" aria-label="Depoimentos de clientes. Use as setas para navegar."></ul>
-            <div class="carrossel__controles">
-              <button type="button" class="carrossel__seta carrossel__seta--ant" aria-label="Depoimento anterior"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-left"></use></svg></button>
-              <button type="button" class="carrossel__seta carrossel__seta--prox" aria-label="Próximo depoimento"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-right"></use></svg></button>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h2 class="titulo-esquerda">Perguntas Frequentes</h2>
-          <div class="faq" id="lista-faq"></div>
-        </div>
+    <!-- Perguntas frequentes -->
+    <section class="secao secao--grafite" id="perguntas" aria-labelledby="faq-titulo">
+      <div class="container faq-container">
+        <h2 class="titulo-secao" id="faq-titulo" data-revelar><span>Perguntas Frequentes</span></h2>
+        <div class="faq" id="lista-faq" data-stagger></div>
       </div>
     </section>
 
@@ -312,7 +369,7 @@
         <rect class="p-dourado" x="5" y="148" width="30" height="14" rx="4"/>
         <rect class="p-dourado" x="14" y="162" width="12" height="7" rx="3.5"/>
       </svg></div>
-      <div class="container">
+      <div class="container" data-revelar>
         <h2 id="cta-titulo">Bora dar um tapa no visual?</h2>
         <button type="button" class="btn btn--brilho" data-demo="WhatsApp"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg>Chamar no WhatsApp</button>
       </div>
@@ -345,6 +402,10 @@
             <span class="marca__texto"><span class="marca__nome">LÂMINA FINA</span> <span class="marca__sub">BARBEARIA</span><span class="sr-only">, página inicial</span></span>
           </a>
           <p>Estilo, confiança e tradição no seu bairro.</p>
+          <div class="rodape__redes">
+            <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
+            <button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button>
+          </div>
         </div>
         <nav aria-label="Menu do rodapé">
           <h3>Menu</h3>
@@ -354,37 +415,39 @@
           <h3>Contato</h3>
           <ul class="rodape__contato">
             <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-phone"></use></svg><span>(11) 0000-0000 (fictício)</span></li>
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pin"></use></svg><span>Seu bairro, Suzano-SP</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pin"></use></svg><span>Praça da República, Centro, São Paulo-SP<br><small>Endereço ilustrativo</small></span></li>
             <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-mail"></use></svg><span>contato@laminafina.exemplo</span></li>
           </ul>
         </div>
         <div>
           <h3>Horários</h3>
           <ul class="rodape__contato">
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Ter a Sáb<br>9h às 20h</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Aberto de terça a sábado, das 9h às 20h</span></li>
             <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg><span>Dom e Seg<br>fechado</span></li>
           </ul>
         </div>
         <div class="rodape__mapa">
           <h3>Onde fica</h3>
-          <iframe title="Mapa da região central de Suzano-SP (OpenStreetMap)" loading="lazy" referrerpolicy="no-referrer"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-46.3400%2C-23.5650%2C-46.2800%2C-23.5200&amp;layer=mapnik"></iframe>
-          <p>Mapa ilustrativo do centro de Suzano-SP. Endereço fictício. © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a></p>
+          <div class="mapa" id="mapa" role="region" aria-label="Mapa com a localização ilustrativa da barbearia no centro de São Paulo">
+            <a class="mapa__fallback" href="https://www.openstreetmap.org/?mlat=-23.5432&amp;mlon=-46.6429#map=16/-23.5432/-46.6429" target="_blank" rel="noopener"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pinned"></use></svg><span>Ver no OpenStreetMap</span></a>
+          </div>
+          <p>Ponto ilustrativo no centro de São Paulo (projeto fictício).</p>
         </div>
       </div>
 
       <div class="rodape__faixa">
         <div>
           <h3>Do nosso Instagram</h3>
-          <ul class="feed" aria-label="Fotos recentes de cortes"></ul>
+          <ul class="feed"></ul>
         </div>
         <div>
           <h3>Formas de pagamento</h3>
           <ul class="pagamentos">
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-qr-code"></use></svg>Pix</li>
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-credit-card"></use></svg>Crédito</li>
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-wallet"></use></svg>Débito</li>
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-banknote"></use></svg>Dinheiro</li>
+            <li class="selo-pag" title="Visa"><svg class="logo-pag logo-pag--visa" viewBox="0 0 24 24" role="img" aria-label="Visa"><use href="assets/icons/sprite.svg#logo-visa"></use></svg></li>
+            <li class="selo-pag" title="Mastercard"><svg class="logo-pag" viewBox="0 0 38 24" role="img" aria-label="Mastercard"><use href="assets/icons/sprite.svg#logo-mastercard"></use></svg></li>
+            <li class="selo-pag" title="Pix"><svg class="logo-pag logo-pag--pix" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons/sprite.svg#logo-pix"></use></svg><span>Pix</span></li>
+            <li class="selo-pag"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-credit-card"></use></svg><span>Débito</span></li>
+            <li class="selo-pag"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-banknote"></use></svg><span>Dinheiro</span></li>
           </ul>
         </div>
       </div>
@@ -402,9 +465,6 @@
       </div>
     </div>
   </footer>
-
-  <button type="button" class="flutuante flutuante--topo" aria-label="Voltar ao topo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-up"></use></svg></button>
-  <button type="button" class="flutuante flutuante--whats" data-demo="WhatsApp" aria-label="Chamar no WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
 
   <div id="banner-cookies" class="cookies" role="region" aria-label="Aviso de cookies" hidden>
     <p>Este site guarda no seu navegador só a sua escolha sobre este aviso e o último agendamento de demonstração. Nada é enviado para servidores.</p>
@@ -425,11 +485,13 @@
     </div>
   </dialog>
 
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
   <dialog id="modal-resumo" class="modal" aria-labelledby="modal-resumo-titulo">
     <div class="modal__corpo">
       <button type="button" class="botao-icone modal__fechar" data-fechar aria-label="Fechar"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg></button>
-      <div class="modal__icone"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-check"></use></svg></div>
-      <h2 id="modal-resumo-titulo">Resumo do agendamento</h2>
+      <div class="modal__icone modal__icone--sucesso"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-check"></use></svg></div>
+      <h2 id="modal-resumo-titulo">Agendamento registrado</h2>
       <ul class="resumo" id="lista-resumo"></ul>
       <p class="aviso-demo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-info"></use></svg><span>Este é um projeto demonstrativo. Nenhum dado foi enviado. Em um site real, este agendamento iria para o WhatsApp ou para o sistema da barbearia.</span></p>
       <div class="modal__acoes">
@@ -439,11 +501,11 @@
     </div>
   </dialog>
 
-  <dialog id="lightbox" class="modal lightbox" aria-label="Foto ampliada da galeria">
+  <dialog id="lightbox" class="modal lightbox" aria-labelledby="lightbox-legenda">
     <div class="modal__corpo">
       <button type="button" class="botao-icone modal__fechar" data-fechar aria-label="Fechar foto" data-foco-inicial><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg></button>
       <figure class="lightbox__figura">
-        <img id="lightbox-img" src="assets/img/galeria-01.webp" alt="" width="800" height="600">
+        <img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width="1600" height="900">
         <button type="button" class="botao-icone lightbox__seta lightbox__seta--ant" aria-label="Foto anterior"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-left"></use></svg></button>
         <button type="button" class="botao-icone lightbox__seta lightbox__seta--prox" aria-label="Próxima foto"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-chevron-right"></use></svg></button>
       </figure>

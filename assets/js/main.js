@@ -1,14 +1,16 @@
-/* Lâmina Fina Barbearia: interações gerais (JS puro). */
+/* Lâmina Fina Barbearia: montagem das seções e interações gerais (JS puro). */
 (function () {
   "use strict";
 
   var D = window.DADOS || {};
   var doc = document;
+  var html = doc.documentElement;
   var reduzMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var BASE_ICONES = (doc.documentElement.getAttribute("data-base") || "") + "assets/icons/sprite.svg";
-  var BASE_IMG = (doc.documentElement.getAttribute("data-base") || "") + "assets/img/";
+  var BASE = html.getAttribute("data-base") || "";
+  var BASE_ICONES = BASE + "assets/icons/sprite.svg";
+  var BASE_IMG = BASE + "assets/img/";
 
-  doc.documentElement.classList.add("js");
+  html.classList.add("js");
 
   /* ---------- Utilidades ---------- */
   function $(sel, ctx) { return (ctx || doc).querySelector(sel); }
@@ -21,8 +23,13 @@
   function icone(nome, classe) {
     return '<svg class="icone ' + (classe || "") + '" aria-hidden="true" focusable="false"><use href="' + BASE_ICONES + "#i-" + nome + '"></use></svg>';
   }
+  function logo(nome, classe, rotulo) {
+    var vb = nome === "mastercard" ? "0 0 38 24" : "0 0 24 24";
+    return '<svg class="' + (classe || "") + '" viewBox="' + vb + '"' + (rotulo ? ' role="img" aria-label="' + esc(rotulo) + '"' : ' aria-hidden="true" focusable="false"') +
+      '><use href="' + BASE_ICONES + "#logo-" + nome + '"></use></svg>';
+  }
   function moeda(v) {
-    return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: v % 1 ? 2 : 0 });
+    return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 });
   }
   function duracaoTexto(min) {
     var h = Math.floor(min / 60), m = min % 60;
@@ -34,7 +41,30 @@
     gravar: function (chave, valor) { try { window.localStorage.setItem(chave, valor); return true; } catch (e) { return false; } },
     remover: function (chave) { try { window.localStorage.removeItem(chave); } catch (e) { /* sem acesso */ } }
   };
-  window.LF = { $: $, $$: $$, esc: esc, icone: icone, moeda: moeda, duracaoTexto: duracaoTexto, armazenamento: armazenamento };
+  var servicoPorId = {};
+  (D.servicos || []).forEach(function (s) { servicoPorId[s.id] = s; });
+  function precoAvulso(combo) {
+    return combo.inclui.reduce(function (t, id) { return t + (servicoPorId[id] ? servicoPorId[id].preco : 0); }, 0);
+  }
+
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $("#toast");
+    if (!t) return;
+    t.innerHTML = icone("circle-check") + "<span>" + esc(msg) + "</span>";
+    t.hidden = false;
+    requestAnimationFrame(function () { t.classList.add("is-visivel"); });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      t.classList.remove("is-visivel");
+      setTimeout(function () { t.hidden = true; }, 300);
+    }, 3200);
+  }
+
+  window.LF = {
+    $: $, $$: $$, esc: esc, icone: icone, logo: logo, moeda: moeda, duracaoTexto: duracaoTexto,
+    armazenamento: armazenamento, precoAvulso: precoAvulso, toast: toast, reduzMovimento: reduzMovimento
+  };
 
   /* ---------- Frascos genéricos em SVG ---------- */
   function frascoSVG(tipo, rotulo) {
@@ -75,7 +105,6 @@
     }
     return '<svg viewBox="0 0 120 160" role="img" aria-label="Frasco genérico de ' + r.toLowerCase() + ' Lâmina Fina">' + corpo + "</svg>";
   }
-
   window.LF.frascoSVG = frascoSVG;
 
   /* ---------- Renderização das seções a partir de dados.js ---------- */
@@ -83,25 +112,41 @@
     var alvo = $("#lista-servicos");
     if (!alvo || !D.servicos) return;
     alvo.innerHTML = D.servicos.map(function (s) {
-      return '<li class="servico" tabindex="0">' + icone("scissors") +
+      return '<li class="servico" tabindex="0">' +
+        '<span class="servico__icone">' + icone(s.icone || "scissors") + "</span>" +
+        '<span class="servico__info"><span class="servico__linha">' +
         '<span class="servico__nome">' + esc(s.nome) + "</span>" +
         '<span class="servico__pontos" aria-hidden="true"></span>' +
-        '<span class="servico__preco">' + (s.aPartirDe ? "<small>a partir de </small>" : "") + moeda(s.preco) + "</span>" +
-        '<span class="servico__duracao">' + icone("clock") + "<span>Duração: " + duracaoTexto(s.duracao) + "</span></span></li>";
+        '<span class="servico__preco">' + (s.aPartirDe ? "<small>a partir de </small>" : "") + moeda(s.preco) + "</span></span>" +
+        '<span class="servico__duracao">' + icone("clock") + "<span>" + duracaoTexto(s.duracao) + "</span></span></span></li>";
     }).join("");
   }
 
   function renderCombos() {
     var alvo = $("#grade-combos");
     if (!alvo || !D.combos) return;
-    alvo.innerHTML = D.combos.map(function (c, i) {
-      return '<article class="combo brilho-borda revelar' + (c.destaque ? " combo--destaque" : "") + '" style="--atraso:' + i * 120 + 'ms">' +
-        (c.destaque ? '<span class="combo__selo">' + esc(c.destaque) + "</span>" : "") +
-        "<h3>" + esc(c.nome) + "</h3>" +
-        '<p class="combo__preco">' + moeda(c.preco) + "</p>" +
-        '<p class="combo__duracao">' + icone("clock") + duracaoTexto(c.duracao) + "</p>" +
-        '<ul class="combo__itens">' + c.itens.map(function (it) { return "<li>" + icone("check") + esc(it) + "</li>"; }).join("") + "</ul>" +
-        '<button type="button" class="btn btn--couro" data-agendar-combo="' + esc(c.id) + '">Agendar combo<span class="sr-only"> ' + esc(c.nome) + "</span></button>" +
+    alvo.innerHTML = D.combos.map(function (c) {
+      var avulso = precoAvulso(c);
+      var economia = avulso - c.preco;
+      var itens = c.inclui.map(function (id) {
+        var s = servicoPorId[id] || { nome: id, icone: "check" };
+        return '<li><span class="combo__item-icone">' + icone(s.icone || "check") + "</span><span>" + esc(s.nome) + '</span><span class="combo__item-preco">' + moeda(s.preco) + "</span></li>";
+      }).join("") + (c.extras || []).map(function (x) {
+        return '<li class="combo__extra"><span class="combo__item-icone">' + icone("gift") + "</span><span>" + esc(x) + '</span><span class="combo__item-preco">cortesia</span></li>';
+      }).join("");
+      return '<article class="combo brilho-borda' + (c.destaque ? " combo--destaque" : "") + '">' +
+        (c.destaque ? '<span class="combo__selo">' + icone("star") + esc(c.destaque) + "</span>" : "") +
+        '<header class="combo__cabeca"><p class="combo__chamada">' + esc(c.chamada || "") + "</p><h3>" + esc(c.nome) + "</h3></header>" +
+        '<div class="combo__preco">' +
+        '<span class="combo__de">Avulso <s>' + moeda(avulso) + "</s></span>" +
+        '<strong class="combo__valor">' + moeda(c.preco) + "</strong>" +
+        (economia > 0 ? '<span class="combo__economia">' + icone("badge-percent") + "Economize " + moeda(economia) + "</span>" : "") +
+        "</div>" +
+        '<p class="combo__duracao">' + icone("clock") + "Cerca de " + duracaoTexto(c.duracao) + "</p>" +
+        '<p class="combo__inclui">Inclui</p>' +
+        '<ul class="combo__itens">' + itens + "</ul>" +
+        '<button type="button" class="btn ' + (c.destaque ? "btn--escuro" : "btn--couro") + ' combo__cta" data-agendar-combo="' + esc(c.id) + '">' +
+        icone("calendar-check") + "Agendar este combo<span class=\"sr-only\">: " + esc(c.nome) + "</span></button>" +
         "</article>";
     }).join("");
   }
@@ -109,10 +154,10 @@
   function renderBarbeiros() {
     var alvo = $("#grade-barbeiros");
     if (!alvo || !D.barbeiros) return;
-    alvo.innerHTML = D.barbeiros.map(function (b, i) {
-      return '<article class="barbeiro revelar" style="--atraso:' + i * 100 + 'ms">' +
-        '<div class="barbeiro__foto"><img src="' + BASE_IMG + esc(b.foto) + '" alt="Retrato do barbeiro ' + esc(b.nome) + '" width="480" height="600" loading="lazy" decoding="async"></div>' +
-        '<div class="barbeiro__info"><h3>' + esc(b.nome) + "</h3><p>" + esc(b.especialidade) + "</p>" +
+    alvo.innerHTML = D.barbeiros.map(function (b) {
+      return '<article class="barbeiro">' +
+        '<div class="barbeiro__foto"><img src="' + BASE_IMG + esc(b.foto) + '" alt="Retrato do barbeiro ' + esc(b.nome) + '" width="720" height="900" loading="lazy" decoding="async" style="object-position:' + esc(b.posicao || "50% 25%") + '"></div>' +
+        '<div class="barbeiro__info"><h3>' + esc(b.nome) + '</h3><p class="barbeiro__funcao">' + esc(b.especialidade) + "</p>" +
         '<button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram de ' + esc(b.nome) + ' (demonstração)">' + icone("instagram") + "</button></div>" +
         "</article>";
     }).join("");
@@ -129,24 +174,41 @@
   function renderProdutos() {
     var alvo = $("#grade-produtos");
     if (!alvo || !D.produtos) return;
-    alvo.innerHTML = D.produtos.map(function (p, i) {
-      return '<li class="produto brilho-borda revelar" style="--atraso:' + i * 90 + 'ms">' +
+    alvo.innerHTML = D.produtos.map(function (p) {
+      return '<li class="produto brilho-borda">' +
         '<div class="produto__img">' + frascoSVG(p.tipo, p.rotulo) + "</div>" +
         "<h3>" + esc(p.nome) + "</h3>" +
+        '<p class="produto__desc">' + esc(p.descricao || "") + "</p>" +
         '<p class="produto__preco">' + moeda(p.preco) + "</p>" +
-        '<button type="button" class="btn btn--pequeno" data-demo="Reservar na loja">Reservar na loja<span class="sr-only">: ' + esc(p.nome) + "</span></button></li>";
+        '<button type="button" class="btn btn--pequeno" data-add-produto="' + esc(p.id) + '">' + icone("plus") + "Adicionar ao agendamento<span class=\"sr-only\">: " + esc(p.nome) + "</span></button></li>";
     }).join("");
   }
 
+  function estrelas(n, classe) {
+    var s = "";
+    for (var i = 0; i < 5; i++) s += icone("star", i < n ? "cheia" : "");
+    return '<span class="estrelas ' + (classe || "") + '" role="img" aria-label="Nota ' + n + ' de 5">' + s + "</span>";
+  }
+
   function renderDepoimentos() {
+    var nota = $("#nota-google");
+    var av = D.avaliacoes;
+    if (nota && av) {
+      nota.innerHTML = logo("google", "nota-google__logo", "Google") +
+        '<div class="nota-google__dados"><p class="nota-google__nota"><strong>' + av.nota.toLocaleString("pt-BR", { minimumFractionDigits: 1 }) + "</strong>" + estrelas(5) + "</p>" +
+        '<p class="nota-google__total">' + av.total + " avaliações no Google</p></div>";
+    }
     var alvo = $("#trilho-depoimentos");
     if (!alvo || !D.depoimentos) return;
-    var estrelas = '<div class="estrelas" role="img" aria-label="Nota 5 de 5">' + new Array(6).join(icone("star")) + "</div>";
     alvo.innerHTML = D.depoimentos.map(function (d, i) {
+      var partes = d.nome.split(" ");
+      var iniciais = (partes[0].charAt(0) + (partes[1] ? partes[1].charAt(0) : "")).toUpperCase();
       return '<li class="depoimento" aria-roledescription="slide" aria-label="' + (i + 1) + " de " + D.depoimentos.length + '">' +
-        '<div class="depoimento__topo"><span class="avatar" aria-hidden="true">' + esc(d.nome.charAt(0)) + "</span>" + estrelas + "</div>" +
-        "<blockquote><p>“" + esc(d.texto) + "”</p></blockquote>" +
-        "<cite>" + esc(d.nome) + ", cliente</cite></li>";
+        '<div class="depoimento__topo"><span class="avatar avatar--' + (i % 3) + '" aria-hidden="true">' + esc(iniciais) + "</span>" +
+        '<div class="depoimento__autor"><cite class="depoimento__nome">' + esc(d.nome) + '</cite><span class="depoimento__quando">' + esc(d.quando) + "</span></div>" +
+        logo("google", "depoimento__google", "Avaliação no Google") + "</div>" +
+        estrelas(5) +
+        "<blockquote><p>" + esc(d.texto) + "</p></blockquote></li>";
     }).join("");
   }
 
@@ -155,24 +217,24 @@
     if (!alvo || !D.perguntas) return;
     alvo.innerHTML = D.perguntas.map(function (p, i) {
       var resp = esc(p.resposta).replace("Regras do Clube", '<a href="regras-do-clube.html">Regras do Clube</a>');
-      return "<details" + (i === 0 ? " open" : "") + "><summary>" + esc(p.pergunta) + icone("chevron-down") + "</summary>" +
-        '<div class="faq__resposta"><p>' + resp + "</p></div></details>";
+      return '<details name="faq"' + (i === 0 ? " open" : "") + "><summary><span>" + esc(p.pergunta) + '</span><span class="faq__icone">' + icone("plus") + "</span></summary>" +
+        '<div class="faq__resposta"><div class="faq__resposta-interna"><p>' + resp + "</p></div></div></details>";
     }).join("");
   }
 
   function renderGaleria() {
-    var filtros = $("#filtros-galeria");
-    var grade = $("#grade-galeria");
-    if (!filtros || !grade || !D.galeria) return;
-    filtros.innerHTML = D.filtrosGaleria.map(function (f, i) {
-      return '<button type="button" class="filtro" data-filtro="' + f.id + '" aria-pressed="' + (i === 0) + '">' + esc(f.nome) + "</button>";
+    var trilho = $("#trilho-galeria");
+    if (!trilho || !D.galeria) return;
+    trilho.innerHTML = D.galeria.map(function (g, i) {
+      var n = String(i + 1).padStart(2, "0");
+      return '<li class="galeria-h__item">' +
+        '<button type="button" class="galeria-h__botao" data-indice="' + i + '" aria-label="Ampliar foto ' + (i + 1) + ": " + esc(g.alt) + '">' +
+        '<img src="' + BASE_IMG + g.arquivo + '-800.webp" srcset="' + BASE_IMG + g.arquivo + "-800.webp 800w, " + BASE_IMG + g.arquivo + '.webp 1600w" sizes="(max-width: 760px) 84vw, 58vw" alt="' + esc(g.alt) + '" width="1600" height="900" loading="lazy" decoding="async">' +
+        '<span class="galeria-h__num" aria-hidden="true">' + n + "</span>" +
+        '<span class="galeria-h__lupa" aria-hidden="true">' + icone("plus") + "</span></button></li>";
     }).join("");
-    grade.innerHTML = D.galeria.map(function (g, i) {
-      return '<li class="galeria__item" data-categoria="' + g.categoria + '">' +
-        '<button type="button" class="galeria__botao" data-indice="' + i + '" aria-label="Ampliar foto: ' + esc(g.alt) + '">' +
-        '<img src="' + BASE_IMG + g.arquivo + '" alt="' + esc(g.alt) + '" width="800" height="600" loading="lazy" decoding="async">' +
-        '<span class="galeria__lupa" aria-hidden="true">Ampliar</span></button></li>';
-    }).join("");
+    var total = $("#galeria-total");
+    if (total) total.textContent = String(D.galeria.length).padStart(2, "0");
   }
 
   function renderFeed() {
@@ -180,7 +242,7 @@
       var fotos = (D.galeria || []).slice(0, 6);
       lista.innerHTML = fotos.map(function (g) {
         return '<li><a href="#" data-demo="Instagram" aria-label="Post do Instagram: ' + esc(g.alt) + ' (demonstração)">' +
-          '<img src="' + BASE_IMG + g.arquivo + '" alt="" width="200" height="200" loading="lazy" decoding="async"></a></li>';
+          '<img src="' + BASE_IMG + g.arquivo + '-800.webp" alt="" width="200" height="200" loading="lazy" decoding="async"></a></li>';
       }).join("");
     });
   }
@@ -254,36 +316,72 @@
     window.addEventListener("resize", function () { if (window.innerWidth > 1020) fecharMenu(); });
   }
 
-  var botaoTopo = $(".flutuante--topo");
   function aoRolar() {
     var y = window.scrollY || window.pageYOffset;
     if (cabecalho) cabecalho.classList.toggle("is-rolado", y > 10);
-    if (botaoTopo) botaoTopo.classList.toggle("is-visivel", y > 600);
   }
   window.addEventListener("scroll", aoRolar, { passive: true });
   aoRolar();
-  if (botaoTopo) {
-    botaoTopo.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: reduzMovimento ? "auto" : "smooth" });
-      var pular = $(".pular-conteudo");
-      if (pular) pular.focus({ preventScroll: true });
-    });
-  }
 
   // Link ativo no menu conforme a seção visível (só na home)
   var linksSecao = $$('.menu__link[href^="#"]');
   if (linksSecao.length && "IntersectionObserver" in window) {
-    var mapa = {};
-    linksSecao.forEach(function (l) { mapa[l.getAttribute("href").slice(1)] = l; });
+    var mapaLinks = {};
+    linksSecao.forEach(function (l) { mapaLinks[l.getAttribute("href").slice(1)] = l; });
     var obsMenu = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (en) {
-        if (en.isIntersecting && mapa[en.target.id]) {
+        if (en.isIntersecting && mapaLinks[en.target.id]) {
           linksSecao.forEach(function (l) { l.removeAttribute("aria-current"); });
-          mapa[en.target.id].setAttribute("aria-current", "true");
+          mapaLinks[en.target.id].setAttribute("aria-current", "true");
         }
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
-    Object.keys(mapa).forEach(function (id) { var s = doc.getElementById(id); if (s) obsMenu.observe(s); });
+    Object.keys(mapaLinks).forEach(function (id) { var s = doc.getElementById(id); if (s) obsMenu.observe(s); });
+  }
+
+  /* ---------- Abertura com o poste de barbeiro ---------- */
+  function iniciarAbertura() {
+    var el = $("#abertura");
+    if (!el) return;
+    if (!html.classList.contains("com-abertura")) { el.remove(); return; }
+    var terminou = false;
+    function fim() {
+      if (terminou) return;
+      terminou = true;
+      html.classList.add("abertura-fim");
+      setTimeout(function () {
+        el.remove();
+        html.classList.remove("com-abertura", "abertura-fim");
+      }, 900);
+    }
+    setTimeout(fim, 1150);
+    el.addEventListener("click", fim);
+    doc.addEventListener("keydown", fim, { once: true });
+    window.addEventListener("wheel", fim, { once: true, passive: true });
+    window.addEventListener("touchstart", fim, { once: true, passive: true });
+  }
+
+  /* ---------- Vídeo de fundo da hero ---------- */
+  function iniciarVideoHero() {
+    var video = $(".hero__video");
+    var cfg = D.heroVideo || {};
+    if (!video || (!cfg.mp4 && !cfg.webm)) return;
+    var economia = navigator.connection && navigator.connection.saveData;
+    if (reduzMovimento || economia) return;
+    [["webm", "video/webm"], ["mp4", "video/mp4"]].forEach(function (par) {
+      if (!cfg[par[0]]) return;
+      var src = doc.createElement("source");
+      src.src = BASE + cfg[par[0]];
+      src.type = par[1];
+      video.appendChild(src);
+    });
+    video.poster = BASE_IMG + "hero.webp";
+    video.hidden = false;
+    video.addEventListener("playing", function () { video.parentNode.classList.add("is-video"); }, { once: true });
+    video.addEventListener("error", function () { video.hidden = true; }, true);
+    video.load();
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { video.hidden = true; });
   }
 
   /* ---------- Contadores ---------- */
@@ -304,55 +402,46 @@
     }
     requestAnimationFrame(passo);
   }
-  var contadores = $$("[data-contar]");
-  if (contadores.length) {
-    if ("IntersectionObserver" in window) {
-      var obsNum = new IntersectionObserver(function (ents, obs) {
-        ents.forEach(function (en) { if (en.isIntersecting) { animarNumero(en.target); obs.unobserve(en.target); } });
-      }, { threshold: 0.6 });
-      contadores.forEach(function (c) { obsNum.observe(c); });
-    } else {
-      contadores.forEach(animarNumero);
-    }
+  function iniciarContadores() {
+    var contadores = $$("[data-contar]");
+    if (!contadores.length) return;
+    if (!("IntersectionObserver" in window)) { contadores.forEach(animarNumero); return; }
+    var obsNum = new IntersectionObserver(function (ents, obs) {
+      ents.forEach(function (en) { if (en.isIntersecting) { animarNumero(en.target); obs.unobserve(en.target); } });
+    }, { threshold: 0.6 });
+    contadores.forEach(function (c) { obsNum.observe(c); });
   }
 
-  /* ---------- Galeria: filtros e lightbox ---------- */
+  /* ---------- Galeria: lightbox e carregamento antecipado ---------- */
   function iniciarGaleria() {
-    var filtros = $("#filtros-galeria");
-    var grade = $("#grade-galeria");
-    if (!filtros || !grade) return;
-    var status = $("#status-galeria");
-    filtros.addEventListener("click", function (e) {
-      var b = e.target.closest(".filtro");
-      if (!b) return;
-      var f = b.getAttribute("data-filtro");
-      $$(".filtro", filtros).forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-      var n = 0;
-      $$(".galeria__item", grade).forEach(function (it) {
-        var mostra = f === "todos" || it.getAttribute("data-categoria") === f;
-        it.hidden = !mostra;
-        if (mostra) { n++; it.style.animation = "none"; void it.offsetWidth; it.style.animation = ""; }
-      });
-      if (status) status.textContent = n + " fotos exibidas em " + b.textContent;
-    });
-
+    var trilho = $("#trilho-galeria");
+    if (!trilho) return;
+    // As fotos ficam fora da tela na horizontal: carrega todas quando a seção se aproxima
+    if ("IntersectionObserver" in window) {
+      var obs = new IntersectionObserver(function (ents) {
+        if (ents[0].isIntersecting) {
+          $$("img", trilho).forEach(function (img) { img.loading = "eager"; });
+          obs.disconnect();
+        }
+      }, { rootMargin: "800px 0px" });
+      obs.observe(trilho);
+    }
     var lb = $("#lightbox");
     if (!lb) return;
     var img = $("#lightbox-img"), legenda = $("#lightbox-legenda");
-    var visiveis = [], pos = 0;
+    var pos = 0, total = D.galeria.length;
     function mostrar(i) {
-      pos = (i + visiveis.length) % visiveis.length;
-      var g = D.galeria[visiveis[pos]];
-      img.src = BASE_IMG + g.arquivo;
+      pos = (i + total) % total;
+      var g = D.galeria[pos];
+      img.src = BASE_IMG + g.arquivo + ".webp";
       img.alt = g.alt;
-      legenda.textContent = g.alt + " (" + (pos + 1) + " de " + visiveis.length + ")";
+      legenda.textContent = g.alt + " (" + (pos + 1) + " de " + total + ")";
     }
-    grade.addEventListener("click", function (e) {
-      var b = e.target.closest(".galeria__botao");
+    trilho.addEventListener("click", function (e) {
+      var b = e.target.closest(".galeria-h__botao");
       if (!b) return;
-      visiveis = $$(".galeria__item:not([hidden]) .galeria__botao", grade).map(function (x) { return +x.getAttribute("data-indice"); });
       abrirDialog(lb);
-      mostrar(visiveis.indexOf(+b.getAttribute("data-indice")));
+      mostrar(+b.getAttribute("data-indice"));
     });
     $(".lightbox__seta--ant", lb).addEventListener("click", function () { mostrar(pos - 1); });
     $(".lightbox__seta--prox", lb).addEventListener("click", function () { mostrar(pos + 1); });
@@ -377,7 +466,7 @@
     var ant = $(".carrossel__seta--ant"), prox = $(".carrossel__seta--prox");
     function passo() {
       var item = trilho.querySelector(".depoimento");
-      return item ? item.getBoundingClientRect().width + 14 : 300;
+      return item ? item.getBoundingClientRect().width + 18 : 300;
     }
     function atualizar() {
       var max = trilho.scrollWidth - trilho.clientWidth - 2;
@@ -393,7 +482,6 @@
       if (e.key === "ArrowRight") { e.preventDefault(); trilho.scrollBy({ left: passo(), behavior: comportamento }); }
       if (e.key === "ArrowLeft") { e.preventDefault(); trilho.scrollBy({ left: -passo(), behavior: comportamento }); }
     });
-    // Arrasto com mouse (no toque o próprio scroll nativo cuida do arrasto)
     var arrastando = false, xIni = 0, scrollIni = 0, moveu = false;
     trilho.addEventListener("pointerdown", function (e) {
       if (e.pointerType !== "mouse") return;
@@ -417,37 +505,125 @@
     atualizar();
   }
 
+  /* ---------- FAQ: uma pergunta aberta por vez, com animação ---------- */
+  function iniciarFaq() {
+    var itens = $$(".faq details");
+    if (!itens.length) return;
+    itens.forEach(function (d) { d.removeAttribute("name"); });
+    function conteudo(d) { return d.querySelector(".faq__resposta"); }
+    function fechar(d) {
+      if (!d.open) return;
+      var c = conteudo(d);
+      if (reduzMovimento || !c.animate) { d.open = false; return; }
+      d.classList.add("is-fechando");
+      var a = c.animate([{ height: c.offsetHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }], { duration: 260, easing: "cubic-bezier(.4,0,.2,1)" });
+      a.onfinish = function () { d.open = false; d.classList.remove("is-fechando"); };
+    }
+    function abrir(d) {
+      d.open = true;
+      var c = conteudo(d);
+      if (reduzMovimento || !c.animate) return;
+      c.animate([{ height: "0px", opacity: 0 }, { height: c.scrollHeight + "px", opacity: 1 }], { duration: 320, easing: "cubic-bezier(.2,.7,.2,1)" });
+    }
+    itens.forEach(function (d) {
+      d.querySelector("summary").addEventListener("click", function (e) {
+        e.preventDefault();
+        if (d.classList.contains("is-fechando")) return;
+        if (d.open) { fechar(d); return; }
+        itens.forEach(function (o) { if (o !== d) fechar(o); });
+        abrir(d);
+      });
+    });
+  }
+
   /* ---------- Banner de cookies ---------- */
   function iniciarCookies() {
     var banner = $("#banner-cookies");
     if (!banner) return;
-    var escolha = armazenamento.ler("lf-cookies");
-    if (escolha) return;
+    if (armazenamento.ler("lf-cookies")) return;
     banner.hidden = false;
-    doc.body.classList.add("tem-cookies");
     banner.addEventListener("click", function (e) {
       var b = e.target.closest("[data-cookies]");
       if (!b) return;
       armazenamento.gravar("lf-cookies", b.getAttribute("data-cookies") + "|" + new Date().toISOString());
-      banner.hidden = true;
-      doc.body.classList.remove("tem-cookies");
+      banner.classList.add("is-saindo");
+      setTimeout(function () { banner.hidden = true; }, 300);
     });
   }
 
-  /* ---------- Revelar ao rolar ---------- */
-  function iniciarRevelar() {
-    var itens = $$(".revelar");
-    if (!itens.length) return;
-    if (reduzMovimento || !("IntersectionObserver" in window)) {
-      itens.forEach(function (i) { i.classList.add("is-visivel"); });
-      return;
+  /* ---------- Transição entre páginas ---------- */
+  function iniciarTransicoes() {
+    var suportaVT = "onpagereveal" in window; // transição nativa entre documentos (CSS @view-transition)
+    var chave = "lf-transicao";
+    if (!suportaVT && !reduzMovimento) {
+      var veioDeLink = false;
+      try { veioDeLink = !!sessionStorage.getItem(chave); sessionStorage.removeItem(chave); } catch (e) { /* sem acesso */ }
+      if (veioDeLink) {
+        html.classList.add("chegando");
+        setTimeout(function () { html.classList.remove("chegando"); }, 700);
+      }
     }
+    window.addEventListener("pageshow", function (e) { if (e.persisted) html.classList.remove("saindo"); });
+    doc.addEventListener("click", function (e) {
+      if (suportaVT || reduzMovimento || e.defaultPrevented) return;
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest("a[href]");
+      if (!a || a.target || a.hasAttribute("download") || a.hasAttribute("data-demo")) return;
+      var url;
+      try { url = new URL(a.getAttribute("href"), location.href); } catch (err) { return; }
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname) return; // âncora na mesma página: rolagem suave
+      if (!/(\.html|\/)$/.test(url.pathname)) return;
+      e.preventDefault();
+      try { sessionStorage.setItem(chave, "1"); } catch (err) { /* sem acesso */ }
+      html.classList.add("saindo");
+      setTimeout(function () { location.href = url.href; }, 420);
+    });
+  }
+
+  /* ---------- Mapa (Leaflet + OpenStreetMap com tema escuro), carregado só perto da tela ---------- */
+  function carregar(tipo, src) {
+    return new Promise(function (ok, erro) {
+      var el;
+      if (tipo === "css") {
+        el = doc.createElement("link"); el.rel = "stylesheet"; el.href = src;
+      } else {
+        el = doc.createElement("script"); el.src = src; el.async = true;
+      }
+      el.onload = ok; el.onerror = erro;
+      doc.head.appendChild(el);
+    });
+  }
+  function iniciarMapa() {
+    var el = $("#mapa");
+    var cfg = D.negocio && D.negocio.mapa;
+    if (!el || !cfg || !("IntersectionObserver" in window)) return;
     var obs = new IntersectionObserver(function (ents) {
-      ents.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("is-visivel"); obs.unobserve(en.target); }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-    itens.forEach(function (i) { obs.observe(i); });
+      if (!ents[0].isIntersecting) return;
+      obs.disconnect();
+      Promise.all([carregar("css", BASE + "assets/css/vendor/leaflet.css"), carregar("js", BASE + "assets/js/vendor/leaflet.js")]).then(function () {
+        var L = window.L;
+        var mapa = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView([cfg.lat, cfg.lng], cfg.zoom);
+        mapa.attributionControl.setPrefix(false);
+        // Tiles padrão do OpenStreetMap; o tema escuro vem de um filtro CSS (.mapa .leaflet-tile-pane)
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a>'
+        }).addTo(mapa);
+        var pino = L.divIcon({
+          className: "mapa__pino",
+          html: '<span class="mapa__pino-pulso"></span>' + icone("map-pin"),
+          iconSize: [40, 40],
+          iconAnchor: [20, 38],
+          popupAnchor: [0, -34]
+        });
+        L.marker([cfg.lat, cfg.lng], { icon: pino, title: "Lâmina Fina Barbearia", alt: "Marcador da Lâmina Fina Barbearia" })
+          .addTo(mapa)
+          .bindPopup("<strong>Lâmina Fina Barbearia</strong><br>" + esc(D.negocio.endereco) + "<br><small>" + esc(D.negocio.enderecoNota || "") + "</small>");
+        el.classList.add("mapa--ativo");
+      }).catch(function () { /* fica o link de fallback */ });
+    }, { rootMargin: "300px 0px" });
+    obs.observe(el);
   }
 
   /* ---------- Início ---------- */
@@ -460,11 +636,33 @@
   renderFaq();
   renderGaleria();
   renderFeed();
+  iniciarAbertura();
+  iniciarVideoHero();
+  iniciarContadores();
   iniciarGaleria();
   iniciarCarrossel();
+  iniciarFaq();
   iniciarCookies();
-  iniciarRevelar();
+  iniciarTransicoes();
+  iniciarMapa();
   doc.dispatchEvent(new CustomEvent("lf:pronto"));
+
+  /* ---------- Animações (GSAP) carregadas depois da primeira pintura ---------- */
+  // O conteúdo já aparece sem elas; assim a página fica rápida e o motion entra em seguida.
+  function carregarMotion() {
+    if (reduzMovimento || !$("[data-revelar], [data-stagger], #galeria")) return;
+    var v = BASE + "assets/js/";
+    carregar("js", v + "vendor/gsap.min.js")
+      .then(function () { return carregar("js", v + "vendor/ScrollTrigger.min.js"); })
+      .then(function () { return carregar("js", v + "motion.js"); })
+      .catch(function () { /* sem animações extras */ });
+  }
+  function quandoOcioso(fn) {
+    if ("requestIdleCallback" in window) window.requestIdleCallback(fn, { timeout: 1500 });
+    else setTimeout(fn, 200);
+  }
+  if (doc.readyState === "complete") quandoOcioso(carregarMotion);
+  else window.addEventListener("load", function () { quandoOcioso(carregarMotion); });
 })();
 
 /* Brilho que segue o ponteiro na borda dos cards (só com mouse e sem movimento reduzido) */

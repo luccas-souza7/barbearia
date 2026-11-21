@@ -28,15 +28,7 @@
 <body>
   <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
 
-  <div class="barra-topo">
-    <div class="container">
-      <p class="barra-topo__horario"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Aberto de terça a sábado, das 9h às 20h</span></p>
-      <div class="barra-topo__redes">
-        <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
-        <button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button>
-      </div>
-    </div>
-  </div>
+  <div class="transicao" aria-hidden="true"><span></span></div>
 
   <header class="cabecalho">
     <div class="container">
@@ -77,7 +69,7 @@
   <main id="conteudo">
     <section class="pagina-topo">
       <div class="container">
-        <ol class="trilha" aria-label="Você está em"><li><a href="index.html">Início</a></li><li aria-current="page">Como manter o corte e a barba entre as visitas</li></ol>
+        <nav aria-label="Você está em"><ol class="trilha"><li><a href="index.html">Início</a></li><li aria-current="page">Como manter o corte e a barba entre as visitas</li></ol></nav>
         <h1>Como manter o corte e a barba entre as visitas</h1>
         <p>Dicas simples de lavagem, finalização, barba e frequência de retorno para cada estilo.</p>
       </div>
@@ -168,6 +160,10 @@
             <span class="marca__texto"><span class="marca__nome">LÂMINA FINA</span> <span class="marca__sub">BARBEARIA</span><span class="sr-only">, página inicial</span></span>
           </a>
           <p>Estilo, confiança e tradição no seu bairro.</p>
+          <div class="rodape__redes">
+            <button type="button" class="botao-icone" data-demo="WhatsApp" aria-label="WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
+            <button type="button" class="botao-icone" data-demo="Instagram" aria-label="Instagram (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-instagram"></use></svg></button>
+          </div>
         </div>
         <nav aria-label="Menu do rodapé">
           <h3>Menu</h3>
@@ -177,37 +173,39 @@
           <h3>Contato</h3>
           <ul class="rodape__contato">
             <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-phone"></use></svg><span>(11) 0000-0000 (fictício)</span></li>
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pin"></use></svg><span>Seu bairro, Suzano-SP</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pin"></use></svg><span>Praça da República, Centro, São Paulo-SP<br><small>Endereço ilustrativo</small></span></li>
             <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-mail"></use></svg><span>contato@laminafina.exemplo</span></li>
           </ul>
         </div>
         <div>
           <h3>Horários</h3>
           <ul class="rodape__contato">
-            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Ter a Sáb<br>9h às 20h</span></li>
+            <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-clock"></use></svg><span>Aberto de terça a sábado, das 9h às 20h</span></li>
             <li><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-x"></use></svg><span>Dom e Seg<br>fechado</span></li>
           </ul>
         </div>
         <div class="rodape__mapa">
           <h3>Onde fica</h3>
-          <iframe title="Mapa da região central de Suzano-SP (OpenStreetMap)" loading="lazy" referrerpolicy="no-referrer"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-46.3400%2C-23.5650%2C-46.2800%2C-23.5200&amp;layer=mapnik"></iframe>
-          <p>Mapa ilustrativo do centro de Suzano-SP. Endereço fictício. © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a></p>
+          <div class="mapa" id="mapa" role="region" aria-label="Mapa com a localização ilustrativa da barbearia no centro de São Paulo">
+            <a class="mapa__fallback" href="https://www.openstreetmap.org/?mlat=-23.5432&amp;mlon=-46.6429#map=16/-23.5432/-46.6429" target="_blank" rel="noopener"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-map-pinned"></use></svg><span>Ver no OpenStreetMap</span></a>
+          </div>
+          <p>Ponto ilustrativo no centro de São Paulo (projeto fictício).</p>
         </div>
       </div>
 
       <div class="rodape__faixa">
         <div>
           <h3>Do nosso Instagram</h3>
-          <ul class="feed" aria-label="Fotos recentes de cortes"></ul>
+          <ul class="feed"></ul>
         </div>
         <div>
           <h3>Formas de pagamento</h3>
           <ul class="pagamentos">
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-qr-code"></use></svg>Pix</li>
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-credit-card"></use></svg>Crédito</li>
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-wallet"></use></svg>Débito</li>
-            <li class="selo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-banknote"></use></svg>Dinheiro</li>
+            <li class="selo-pag" title="Visa"><svg class="logo-pag logo-pag--visa" viewBox="0 0 24 24" role="img" aria-label="Visa"><use href="assets/icons/sprite.svg#logo-visa"></use></svg></li>
+            <li class="selo-pag" title="Mastercard"><svg class="logo-pag" viewBox="0 0 38 24" role="img" aria-label="Mastercard"><use href="assets/icons/sprite.svg#logo-mastercard"></use></svg></li>
+            <li class="selo-pag" title="Pix"><svg class="logo-pag logo-pag--pix" viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons/sprite.svg#logo-pix"></use></svg><span>Pix</span></li>
+            <li class="selo-pag"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-credit-card"></use></svg><span>Débito</span></li>
+            <li class="selo-pag"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-banknote"></use></svg><span>Dinheiro</span></li>
           </ul>
         </div>
       </div>
@@ -225,9 +223,6 @@
       </div>
     </div>
   </footer>
-
-  <button type="button" class="flutuante flutuante--topo" aria-label="Voltar ao topo"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-arrow-up"></use></svg></button>
-  <button type="button" class="flutuante flutuante--whats" data-demo="WhatsApp" aria-label="Chamar no WhatsApp (demonstração)"><svg class="icone " aria-hidden="true" focusable="false"><use href="assets/icons/sprite.svg#i-message-circle"></use></svg></button>
 
   <div id="banner-cookies" class="cookies" role="region" aria-label="Aviso de cookies" hidden>
     <p>Este site guarda no seu navegador só a sua escolha sobre este aviso e o último agendamento de demonstração. Nada é enviado para servidores.</p>
